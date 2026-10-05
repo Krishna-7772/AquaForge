@@ -1,0 +1,24 @@
+{
+  "survey_code": "DEMO-COASTAL-BAY-A",
+  "survey_name": "DEMO COASTAL SURVEY \u2014 BAY A",
+  "is_synthetic_demo": true,
+  "demonstration_banner": "DEMO DATA \u2014 NOT A LIVE MARINE SURVEY",
+  "vessel_name": "RV Sagarkanya (MoES/NIOT Benchmark)",
+  "sensor_model": "Edgetech 4200 Dual-Frequency SSS",
+  "frequency_khz": 410.0,
+  "vessel_lat": 13.082715,
+  "vessel_lon": 80.270725,
+  "vessel_heading_deg": 35.0,
+  "sensor_altitude_m": 14.5,
+  "water_depth_m": 28.0,
+  "max_slant_range_m": 75.0,
+  "meters_per_pixel": 0.08,
+  "scenarios_included": [
+    "1. High-confidence derelict gear candidate",
+    "2. Large shipwreck hull debris",
+    "3. Subsea pipeline conduit",
+    "4. Compact cylindrical container",
+    "5. Natural bedrock formation",
+    "6. Out-of-distribution novel acoustic anomaly"
+  ]
+}

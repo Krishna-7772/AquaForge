@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: aquaforge
+    runtime: docker
+    plan: free
+    region: oregon
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: PORT
+        value: 8000
+      - key: HOST
+        value: 0.0.0.0
+      - key: PUBLIC_APP_URL
+        fromService:
+          type: web
+          name: aquaforge
+          property: host
+    healthCheckPath: /api/health

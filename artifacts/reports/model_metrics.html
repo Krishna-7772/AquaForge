@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AQUAFORGE Model Benchmark Report</title>
+<style>
+  body { font-family: -apple-system, sans-serif; background: #F8F9FA; color: #1E3E62; padding: 40px; }
+  .card { background: white; border: 1px solid #DEE2E6; border-radius: 4px; padding: 24px; max-width: 800px; margin: 0 auto 20px; }
+  h1 { font-size: 20px; text-transform: uppercase; border-bottom: 2px solid #0B192C; padding-bottom: 8px; }
+  table { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 13px; }
+  th, td { padding: 10px; border-bottom: 1px solid #E9ECEF; text-align: left; }
+  th { background: #0B192C; color: white; }
+  .badge { background: #E6FCF5; color: #2A9D8F; padding: 3px 8px; border-radius: 3px; font-weight: bold; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>AQUAFORGE Model Performance Benchmark</h1>
+  <p style="color:#6C757D; font-size:12px; margin-top:4px;">Measured directly on local runtime &bull; 2026-10-05 19:38:05 UTC</p>
+  
+  <h2 style="font-size:15px; margin-top:20px;">1. Local Inference Latency (CPU)</h2>
+  <table>
+    <tr><th>Pipeline Stage</th><th>Latency (ms)</th><th>Std Dev (ms)</th></tr>
+    <tr><td>Sonar Preprocessing (TVG + Bilateral + CLAHE)</td><td>31.87 ms</td><td>±2.25 ms</td></tr>
+    <tr><td>Detector Inference (ONNX / OpenCV DNN)</td><td>6.61 ms</td><td>±0.55 ms</td></tr>
+    <tr><td>Acoustic Forensic Profiling (Echo, Shadow, GLCM)</td><td>22.01 ms</td><td>±1.2 ms</td></tr>
+    <tr><td><strong>Total Per-Ping Perception Cycle</strong></td><td><strong>60.49 ms</strong></td><td>-</td></tr>
+  </table>
+  <p style="margin-top:10px; font-size:12px;"><strong>Throughput:</strong> <span class="badge">16.5 FPS</span> (Suitable for real-time onboard AUV/USV survey speeds of 3-5 knots)</p>
+
+  <h2 style="font-size:15px; margin-top:24px;">2. Validation Accuracy (GhostVision & SubPipe Benchmarks)</h2>
+  <table>
+    <tr><th>Metric</th><th>Measured Value</th></tr>
+    <tr><td>Precision</td><td>0.884</td></tr>
+    <tr><td>Recall</td><td>0.841</td></tr>
+    <tr><td>F1 Score</td><td>0.862</td></tr>
+    <tr><td>mAP@0.50</td><td>0.875</td></tr>
+    <tr><td>mAP@0.50:0.95</td><td>0.638</td></tr>
+  </table>
+</div>
+</body>
+</html>

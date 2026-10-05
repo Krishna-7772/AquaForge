@@ -1,0 +1,1776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AQUAFORGE Survey Report - DEMO-COASTAL-BAY-A</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap');
+  
+  :root {
+    --navy-900: #0B192C;
+    --navy-800: #1E3E62;
+    --navy-700: #295F98;
+    --sand-50: #F8F9FA;
+    --sand-100: #E9ECEF;
+    --border: #DEE2E6;
+    --text-dark: #212529;
+    --text-muted: #6C757D;
+    --high-alert: #D90429;
+    --med-alert: #F77F00;
+    --low-alert: #2A9D8F;
+    --review-alert: #7209B7;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: var(--text-dark);
+    background-color: var(--sand-50);
+    line-height: 1.5;
+    padding: 40px 20px;
+  }
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    border-radius: 4px;
+    padding: 48px;
+  }
+  .header {
+    border-bottom: 3px solid var(--navy-800);
+    padding-bottom: 24px;
+    margin-bottom: 32px;
+  }
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .brand-title {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: var(--navy-900);
+  }
+  .brand-sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-top: 4px;
+  }
+  .badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .badge-high { background: #FFE5E5; color: var(--high-alert); border: 1px solid #FFA8A8; }
+  .badge-med { background: #FFF4E5; color: var(--med-alert); border: 1px solid #FFD8A8; }
+  .badge-low { background: #E6FCF5; color: var(--low-alert); border: 1px solid #96F2D7; }
+  .badge-review { background: #F3E8FF; color: var(--review-alert); border: 1px solid #D8B4FE; }
+
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    background: var(--sand-50);
+    border: 1px solid var(--border);
+    padding: 16px;
+    border-radius: 4px;
+    margin-bottom: 32px;
+  }
+  .meta-item {
+    font-size: 12px;
+  }
+  .meta-label {
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .meta-val {
+    font-weight: 600;
+    color: var(--navy-900);
+    margin-top: 2px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  h2 {
+    font-size: 18px;
+    color: var(--navy-900);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
+    margin-top: 36px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .summary-cards {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .card {
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 16px;
+    text-align: center;
+  }
+  .card-num {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--navy-800);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .card-lbl {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-top: 4px;
+    text-transform: uppercase;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+    font-size: 13px;
+  }
+  th {
+    background: var(--navy-900);
+    color: #FFFFFF;
+    font-weight: 600;
+    text-align: left;
+    padding: 10px 12px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tr:nth-child(even) {
+    background-color: var(--sand-50);
+  }
+  .mono { font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+
+  .contact-block {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    margin-bottom: 24px;
+    padding: 20px;
+    background: #FFFFFF;
+  }
+  .contact-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+  }
+  .contact-id {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--navy-900);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .bullet-list {
+    list-style: none;
+    padding: 0;
+  }
+  .bullet-list li {
+    position: relative;
+    padding-left: 18px;
+    margin-bottom: 6px;
+    font-size: 12px;
+  }
+  .bullet-list li::before {
+    content: "•";
+    position: absolute;
+    left: 4px;
+    color: var(--navy-700);
+    font-weight: bold;
+  }
+
+  .alert-box {
+    background: #EBF5FB;
+    border-left: 4px solid var(--navy-700);
+    padding: 14px 16px;
+    font-size: 12px;
+    color: #1A5276;
+    margin: 24px 0;
+  }
+  .footer {
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--text-muted);
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-top">
+      <div>
+        <div class="brand-title">AQUAFORGE</div>
+        <div class="brand-sub">National Institute of Ocean Technology (NIOT) &bull; Ministry of Earth Sciences (MoES) &bull; SIH26057</div>
+      </div>
+      <div style="text-align: right;">
+        <span class="badge badge-med">HYDROGRAPHIC SCREENING REPORT</span>
+        <div style="font-size: 11px; color: var(--text-muted); margin-top: 6px;">Generated: 2026-10-05 19:47:55 UTC</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Operational Context Notice -->
+  <div class="alert-box">
+    <strong>OPERATIONAL PRINCIPLE:</strong> Automated screening identified candidate contacts for human review.
+    This report provides acoustic forensic evidence, calibrated confidence, multi-ping persistence, and diagnostic next-scan recommendations.
+    Final clearance or physical intervention requires operator review and validation.
+  </div>
+
+  <!-- Survey Metadata Grid -->
+  <div class="meta-grid">
+    <div class="meta-item">
+      <div class="meta-label">Survey Identifier</div>
+      <div class="meta-val">DEMO-COASTAL-BAY-A</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Survey Name</div>
+      <div class="meta-val">DEMO COASTAL SURVEY — BAY A</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Vessel / Platform</div>
+      <div class="meta-val">RV Sagarkanya (MoES/NIOT Benchmark)</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Acoustic Sensor</div>
+      <div class="meta-val">Edgetech 4200 Dual-Frequency SSS (410.0 kHz)</div>
+    </div>
+  </div>
+
+  <!-- Summary Cards -->
+  <div class="summary-cards">
+    <div class="card">
+      <div class="card-num">30</div>
+      <div class="card-lbl">Total Contacts</div>
+    </div>
+    <div class="card">
+      <div class="card-num" style="color: var(--high-alert);">1</div>
+      <div class="card-lbl">High Priority</div>
+    </div>
+    <div class="card">
+      <div class="card-num" style="color: var(--review-alert);">8</div>
+      <div class="card-lbl">Unknown / Novel</div>
+    </div>
+    <div class="card">
+      <div class="card-num" style="color: var(--low-alert);">30</div>
+      <div class="card-lbl">Georeferenced</div>
+    </div>
+    <div class="card">
+      <div class="card-num">0</div>
+      <div class="card-lbl">Reviewed</div>
+    </div>
+  </div>
+
+  <!-- Section: Contact Inventory Table -->
+  <h2>1. Candidate Contact Summary Inventory</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>Detected Class</th>
+        <th>Acoustic Hypothesis</th>
+        <th>Model Score</th>
+        <th>Calibrated</th>
+        <th>Persistence</th>
+        <th>Priority</th>
+        <th>Coordinates</th>
+        <th>Review Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="mono"><strong>AF-001</strong></td>
+        <td>OTHER_MAN_MADE</td>
+        <td style="font-size: 11px;">AMBIGUOUS ANOMALY</td>
+        <td class="mono">2.49</td>
+        <td class="mono">0.97 <span style="font-size: 9px; color: var(--text-muted);">(VALIDATED)</span></td>
+        <td style="font-size: 11px;">1 pings</td>
+        <td><span class="badge badge-review">REVIEW</span></td>
+        <td class="mono" style="font-size: 11px;">13.08277N, 80.27065E (±3.3m)</td>
+        <td style="font-weight: 600; font-size: 11px;">UNREVIEWED</td>
+      </tr>
+      <tr>
+        <td class="mono"><strong>AF-002</strong></td>
+        <td>NATURAL_FORMATION</td>
+        <td style="font-size: 11px;">AMBIGUOUS ANOMALY</td>
+        <td class="mono">2.49</td>
+        <td class="mono">0.97 <span style="font-size: 9px; color: var(--text-muted);">(VALIDATED)</span></td>
+        <td style="font-size: 11px;">1 pings</td>
+        <td><span class="badge badge-med">MEDIUM</span></td>
+        <td class="mono" style="font-size: 11px;">13.08265N, 80.27082E (±3.2m)</td>
+        <td style="font-weight: 600; font-size: 11px;">UNREVIEWED</td>
+      </tr>
+      <tr>
+        <td class="mono"><strong>AF-003</strong></td>
+        <td>CYLINDRICAL_OBJECT</td>
+        <td style="font-size: 11px;">AMBIGUOUS ANOMALY</td>
+        <td class="mono">2.51</td>
+        <td class="mono">0.97 <span style="font-size: 9px; color: var(--text-muted);">(VALIDATED)</span></td>
+        <td style="font-size: 11px;">1 pings</td>
+        <td><span class="badge badge-med">MEDIUM</span></td>
+        <td class="mono" style="font-size: 11px;">13.08278N, 80.27063E (±3.2m)</td>
+        <td style="font-weight: 600; font-size: 11px;">UNREVIEWED</td>
+      </tr>
+      <tr>
+        <td class="mono"><strong>AF-004</strong></td>
+        <td>SHIPWRECK</td>
+        <td style="font-size: 11px;">AMBIGUOUS ANOMALY</td>
+        <td class="mono">2.54</td>
+        <td class="mono">0.97 <span style="font-size: 9px; color: var(--text-muted);">(VALIDATED)</span></td>
+        <td style="font-size: 11px;">1 pings</td>
+        <td><span class="badge badge-review">REVIEW</span></td>
+        <td class="mono" style="font-size: 11px;">13.08288N, 80.27049E (±3.1m)</td>
+        <td style="font-weight: 600; font-size: 11px;">UNREVIEWED</td>
+      </tr>
+      <tr>
+        <td class="mono"><strong>AF-005</strong></td>
+        <td>MINE_LIKE_OBJECT</td>
+        <td style="font-size: 11px;">AMBIGUOUS ANOMALY</td>
+        <td class="mono">2.52</td>
+        <td class="mono">0.97 <span style="font-size: 9px; color: var(--text-muted);">(VALIDATED)</span></td>
+        <td style="font-size: 11px;">1 pings</td>
+        <td><span class="badge badge-review">REVIEW</span></td>
+        <td class="mono" style="font-size: 11px;">13.08257N, 80.27093E (±3.1m)</td>
+        <td style="font-weight: 600; font-size: 11px;">UNREVIEWED</td>
+      </tr>
+      <tr>
+        <td class="mono"><strong>AF-006</strong></td>
+        <td>MINE_LIKE_OBJECT</td>
+        <td style="font-size: 11px;">AMBIGUOUS ANOMALY</td>
+        <td class="mono">2.53</td>
+        <td class="mono">0.97 <span style="font-size: 9px; color: var(--text-muted);">(VALIDATED)</span></td>
+        <td style="font-size: 11px;">1 pings</td>
+        <td><span class="badge badge-med">MEDIUM</span></td>
+        <td class="mono" style="font-size: 11px;">13.08265N, 80.27082E (±3.2m)</td>
+        <td style="font-weight: 600; font-size: 11px;">UNREVIEWED</td>
+      </tr>
+      <tr>
+        <td class="mono"><strong>AF-007</strong></td>
+        <td>PIPELINE</td>
+        <td style="font-size: 11px;">CYLINDRICAL / LINEAR BODY</td>
+        <td class="mono">2.50</td>
+        <td class="mono">0.97 <span style="font-size: 9px; color: var(--text-muted);">(VALIDATED)</span></td>
+        <td style="font-size: 11px;">1 pings</td>
+        <td><span class="badge badge-med">MEDIUM</span></td>
+        <td class="mono" style="font-size: 11px;">13.08258N, 80.27092E (±3.1m)</td>
+        <td style="font-weight: 600; font-size: 11px;">UNREVIEWED</td>
+      </tr>
+      <tr>
+        <td class="mono"><strong>AF-008</strong></td>
+        <td>NATURAL_FORMATION</td>
+        <td style="font-size: 11px;">AMBIGUOUS ANOMALY</td>
+        <td class="mono">2.50</td>
+        <td class="mono">0.97 <span style="font-size: 9px; color: var(--text-muted);">(VALIDATED)</span></td>
+        <td style="font-size: 11px;">2 pings</td>
+        <td><span class="badge badge-med">MEDIUM</span></td>
+        <td class="mono" style="font-size: 11px;">13.08278N, 80.27063E (±3.2m)</td>
+        <td style="font-weight: 600; font-size: 11px;">UNREVIEWED</td>
+      </tr>
+      <tr>
+        <td class="mono"><strong>AF-009</strong></td>
+        <td>MINE_LIKE_OBJECT</td>
+        <td style="font-size: 11px;">AMBIGUOUS ANOMALY</td>
+        <td class="mono">2.49</td>
+        <td class="mono">0.97 <span style="font-size: 9px; color: var(--text-muted);">(VALIDATED)</span></td>
+        <td style="font-size: 11px;">1 pings</td>
+        <td><span class="badge badge-med">MEDIUM</span></td>
+        <td class="mono" style="font-size: 11px;">13.08286N, 80.27052E (±3.1m)</td>
+        <td style="font-weight: 600; font-size: 11px;">UNREVIEWED</td>
+      </tr>
+      <tr>
+        <td class="mono"><strong>AF-010</strong></td>
+        <td>CYLINDRICAL_OBJECT</td>
+        <td style="font-size: 11px;">AMBIGUOUS ANOMALY</td>
+        <td class="mono">2.49</td>
+        <td class="mono">0.97 <span style="font-size: 9px; color: var(--text-muted);">(VALIDATED)</span></td>
+        <td style="font-size: 11px;">2 pings</td>
+        <td><span class="badge badge-med">MEDIUM</span></td>
+        <td class="mono" style="font-size: 11px;">13.08265N, 80.27082E (±3.2m)</td>
+        <td style="font-weight: 600; font-size: 11px;">UNREVIEWED</td>
+      </tr>
+      <tr>
+        <td class="mono"><strong>AF-011</strong></td>
+        <td>MINE_LIKE_OBJECT</td>
+        <td style="font-size: 11px;">AMBIGUOUS ANOMALY</td>
+        <td class="mono">2.48</td>
+        <td class="mono">0.97 <span style="font-size: 9px; color: var(--text-muted);">(VALIDATED)</span></td>
+        <td style="font-size: 11px;">1 pings</td>
+        <td><span class="badge badge-med">MEDIUM</span></td>
+        <td class="mono" style="font-size: 11px;">13.08278N, 80.27063E (±3.2m)</td>
+        <td style="font-weight: 600; font-size: 11px;">UNREVIEWED</td>
+      </tr>
+      <tr>
+        <td class="mono"><strong>AF-012</strong></td>
+        <td>OTHER_MAN_MADE</td>
+        <td style="font-size: 11px;">AMBIGUOUS ANOMALY</td>
+        <td class="mono">2.50</td>
+        <td class="mono">0.97 <span style="font-size: 9px; color: var(--text-muted);">(VALIDATED)</span></td>
+        <td style="font-size: 11px;">1 pings</td>
+        <td><span class="badge badge-med">MEDIUM</span></td>
+        <td class="mono" style="font-size: 11px;">13.08278N, 80.27063E (±3.2m)</td>
+        <td style="font-weight: 600; font-size: 11px;">UNREVIEWED</td>
+      </tr>
+      <tr>
+        <td class="mono"><strong>AF-013</strong></td>
+        <td>PIPELINE</td>
+        <td style="font-size: 11px;">AMBIGUOUS ANOMALY</td>
+        <td class="mono">2.50</td>
+        <td class="mono">0.97 <span style="font-size: 9px; color: var(--text-muted);">(VALIDATED)</span></td>
+        <td style="font-size: 11px;">1 pings</td>
+        <td><span class="badge badge-med">MEDIUM</span></td>
+        <td class="mono" style="font-size: 11px;">13.08279N, 80.27061E (±3.2m)</td>
+        <td style="font-weight: 600; font-size: 11px;">UNREVIEWED</td>
+      </tr>
+      <tr>
+        <td class="mono"><strong>AF-014</strong></td>
+        <td>DERELICT_GEAR</td>
+        <td style="font-size: 11px;">MAN-MADE CANDIDATE</td>
+        <td class="mono">2.52</td>
+        <td class="mono">0.97 <span style="font-size: 9px; color: var(--text-muted);">(VALIDATED)</span></td>
+        <td style="font-size: 11px;">2 pings</td>
+        <td><span class="badge badge-high">HIGH</span></td>
+        <td class="mono" style="font-size: 11px;">13.08287N, 80.27050E (±3.1m)</td>
+        <td style="font-weight: 600; font-size: 11px;">UNREVIEWED</td>
+      </tr>
+      <tr>
+        <td class="mono"><strong>AF-015</strong></td>
+        <td>NATURAL_FORMATION</td>
+        <td style="font-size: 11px;">AMBIGUOUS ANOMALY</td>
+        <td class="mono">2.49</td>
+        <td class="mono">0.97 <span style="font-size: 9px; color: var(--text-muted);">(VALIDATED)</span></td>
+        <td style="font-size: 11px;">1 pings</td>
+        <td><span class="badge badge-low">LOW</span></td>
+        <td class="mono" style="font-size: 11px;">13.08257N, 80.27093E (±3.1m)</td>
+        <td style="font-weight: 600; font-size: 11px;">UNREVIEWED</td>
+      </tr>
+      <tr>
+        <td class="mono"><strong>AF-016</strong></td>
+        <td>SHIPWRECK</td>
+        <td style="font-size: 11px;">CYLINDRICAL / LINEAR BODY</td>
+        <td class="mono">2.52</td>
+        <td class="mono">0.97 <span style="font-size: 9px; color: var(--text-muted);">(VALIDATED)</span></td>
+        <td style="font-size: 11px;">2 pings</td>
+        <td><span class="badge badge-med">MEDIUM</span></td>
+        <td class="mono" style="font-size: 11px;">13.08278N, 80.27063E (±3.2m)</td>
+        <td style="font-weight: 600; font-size: 11px;">UNREVIEWED</td>
+      </tr>
+      <tr>
+        <td class="mono"><strong>AF-017</strong></td>
+        <td>PIPELINE</td>
+        <td style="font-size: 11px;">AMBIGUOUS ANOMALY</td>
+        <td class="mono">2.52</td>
+        <td class="mono">0.97 <span style="font-size: 9px; color: var(--text-muted);">(VALIDATED)</span></td>
+        <td style="font-size: 11px;">2 pings</td>
+        <td><span class="badge badge-med">MEDIUM</span></td>
+        <td class="mono" style="font-size: 11px;">13.08265N, 80.27082E (±3.2m)</td>
+        <td style="font-weight: 600; font-size: 11px;">UNREVIEWED</td>
+      </tr>
+      <tr>
+        <td class="mono"><strong>AF-018</strong></td>
+        <td>CYLINDRICAL_OBJECT</td>
+        <td style="font-size: 11px;">AMBIGUOUS ANOMALY</td>
+        <td class="mono">2.51</td>
+        <td class="mono">0.97 <span style="font-size: 9px; color: var(--text-muted);">(VALIDATED)</span></td>
+        <td style="font-size: 11px;">1 pings</td>
+        <td><span class="badge badge-med">MEDIUM</span></td>
+        <td class="mono" style="font-size: 11px;">13.08287N, 80.27050E (±3.1m)</td>
+        <td style="font-weight: 600; font-size: 11px;">UNREVIEWED</td>
+      </tr>
+      <tr>
+        <td class="mono"><strong>AF-019</strong></td>
+        <td>PIPELINE</td>
+        <td style="font-size: 11px;">CYLINDRICAL / LINEAR BODY</td>
+        <td class="mono">2.50</td>
+        <td class="mono">0.97 <span style="font-size: 9px; color: var(--text-muted);">(VALIDATED)</span></td>
+        <td style="font-size: 11px;">2 pings</td>
+        <td><span class="badge badge-med">MEDIUM</span></td>
+        <td class="mono" style="font-size: 11px;">13.08269N, 80.27076E (±4.2m)</td>
+        <td style="font-weight: 600; font-size: 11px;">UNREVIEWED</td>
+      </tr>
+      <tr>
+        <td class="mono"><strong>AF-020</strong></td>
+        <td>SHIPWRECK</td>
+        <td style="font-size: 11px;">AMBIGUOUS ANOMALY</td>
+        <td class="mono">2.52</td>
+        <td class="mono">0.97 <span style="font-size: 9px; color: var(--text-muted);">(VALIDATED)</span></td>
+        <td style="font-size: 11px;">1 pings</td>
+        <td><span class="badge badge-med">MEDIUM</span></td>
+        <td class="mono" style="font-size: 11px;">13.08283N, 80.27056E (±3.1m)</td>
+        <td style="font-weight: 600; font-size: 11px;">UNREVIEWED</td>
+      </tr>
+      <tr>
+        <td class="mono"><strong>AF-021</strong></td>
+        <td>PIPELINE</td>
+        <td style="font-size: 11px;">CYLINDRICAL / LINEAR BODY</td>
+        <td class="mono">2.50</td>
+        <td class="mono">0.97 <span style="font-size: 9px; color: var(--text-muted);">(VALIDATED)</span></td>
+        <td style="font-size: 11px;">1 pings</td>
+        <td><span class="badge badge-review">REVIEW</span></td>
+        <td class="mono" style="font-size: 11px;">13.08256N, 80.27096E (±3.1m)</td>
+        <td style="font-weight: 600; font-size: 11px;">UNREVIEWED</td>
+      </tr>
+      <tr>
+        <td class="mono"><strong>AF-022</strong></td>
+        <td>PIPELINE</td>
+        <td style="font-size: 11px;">AMBIGUOUS ANOMALY</td>
+        <td class="mono">2.50</td>
+        <td class="mono">0.97 <span style="font-size: 9px; color: var(--text-muted);">(VALIDATED)</span></td>
+        <td style="font-size: 11px;">1 pings</td>
+        <td><span class="badge badge-med">MEDIUM</span></td>
+        <td class="mono" style="font-size: 11px;">13.08278N, 80.27063E (±3.2m)</td>
+        <td style="font-weight: 600; font-size: 11px;">UNREVIEWED</td>
+      </tr>
+      <tr>
+        <td class="mono"><strong>AF-023</strong></td>
+        <td>DERELICT_GEAR</td>
+        <td style="font-size: 11px;">AMBIGUOUS ANOMALY</td>
+        <td class="mono">2.53</td>
+        <td class="mono">0.97 <span style="font-size: 9px; color: var(--text-muted);">(VALIDATED)</span></td>
+        <td style="font-size: 11px;">1 pings</td>
+        <td><span class="badge badge-med">MEDIUM</span></td>
+        <td class="mono" style="font-size: 11px;">13.08257N, 80.27093E (±3.1m)</td>
+        <td style="font-weight: 600; font-size: 11px;">UNREVIEWED</td>
+      </tr>
+      <tr>
+        <td class="mono"><strong>AF-024</strong></td>
+        <td>DERELICT_GEAR</td>
+        <td style="font-size: 11px;">CYLINDRICAL / LINEAR BODY</td>
+        <td class="mono">2.50</td>
+        <td class="mono">0.97 <span style="font-size: 9px; color: var(--text-muted);">(VALIDATED)</span></td>
+        <td style="font-size: 11px;">1 pings</td>
+        <td><span class="badge badge-review">REVIEW</span></td>
+        <td class="mono" style="font-size: 11px;">13.08278N, 80.27063E (±3.2m)</td>
+        <td style="font-weight: 600; font-size: 11px;">UNREVIEWED</td>
+      </tr>
+      <tr>
+        <td class="mono"><strong>AF-025</strong></td>
+        <td>OTHER_MAN_MADE</td>
+        <td style="font-size: 11px;">AMBIGUOUS ANOMALY</td>
+        <td class="mono">2.51</td>
+        <td class="mono">0.97 <span style="font-size: 9px; color: var(--text-muted);">(VALIDATED)</span></td>
+        <td style="font-size: 11px;">1 pings</td>
+        <td><span class="badge badge-med">MEDIUM</span></td>
+        <td class="mono" style="font-size: 11px;">13.08278N, 80.27063E (±3.2m)</td>
+        <td style="font-weight: 600; font-size: 11px;">UNREVIEWED</td>
+      </tr>
+      <tr>
+        <td class="mono"><strong>AF-026</strong></td>
+        <td>MINE_LIKE_OBJECT</td>
+        <td style="font-size: 11px;">AMBIGUOUS ANOMALY</td>
+        <td class="mono">2.52</td>
+        <td class="mono">0.97 <span style="font-size: 9px; color: var(--text-muted);">(VALIDATED)</span></td>
+        <td style="font-size: 11px;">1 pings</td>
+        <td><span class="badge badge-med">MEDIUM</span></td>
+        <td class="mono" style="font-size: 11px;">13.08278N, 80.27063E (±3.2m)</td>
+        <td style="font-weight: 600; font-size: 11px;">UNREVIEWED</td>
+      </tr>
+      <tr>
+        <td class="mono"><strong>AF-027</strong></td>
+        <td>CYLINDRICAL_OBJECT</td>
+        <td style="font-size: 11px;">CYLINDRICAL / LINEAR BODY</td>
+        <td class="mono">2.50</td>
+        <td class="mono">0.97 <span style="font-size: 9px; color: var(--text-muted);">(VALIDATED)</span></td>
+        <td style="font-size: 11px;">1 pings</td>
+        <td><span class="badge badge-review">REVIEW</span></td>
+        <td class="mono" style="font-size: 11px;">13.08278N, 80.27063E (±3.2m)</td>
+        <td style="font-weight: 600; font-size: 11px;">UNREVIEWED</td>
+      </tr>
+      <tr>
+        <td class="mono"><strong>AF-028</strong></td>
+        <td>SHIPWRECK</td>
+        <td style="font-size: 11px;">AMBIGUOUS ANOMALY</td>
+        <td class="mono">2.52</td>
+        <td class="mono">0.97 <span style="font-size: 9px; color: var(--text-muted);">(VALIDATED)</span></td>
+        <td style="font-size: 11px;">1 pings</td>
+        <td><span class="badge badge-med">MEDIUM</span></td>
+        <td class="mono" style="font-size: 11px;">13.08257N, 80.27093E (±3.1m)</td>
+        <td style="font-weight: 600; font-size: 11px;">UNREVIEWED</td>
+      </tr>
+      <tr>
+        <td class="mono"><strong>AF-029</strong></td>
+        <td>CYLINDRICAL_OBJECT</td>
+        <td style="font-size: 11px;">CYLINDRICAL / LINEAR BODY</td>
+        <td class="mono">2.53</td>
+        <td class="mono">0.97 <span style="font-size: 9px; color: var(--text-muted);">(VALIDATED)</span></td>
+        <td style="font-size: 11px;">1 pings</td>
+        <td><span class="badge badge-review">REVIEW</span></td>
+        <td class="mono" style="font-size: 11px;">13.08265N, 80.27082E (±3.2m)</td>
+        <td style="font-weight: 600; font-size: 11px;">UNREVIEWED</td>
+      </tr>
+      <tr>
+        <td class="mono"><strong>AF-030</strong></td>
+        <td>OTHER_MAN_MADE</td>
+        <td style="font-size: 11px;">AMBIGUOUS ANOMALY</td>
+        <td class="mono">2.49</td>
+        <td class="mono">0.97 <span style="font-size: 9px; color: var(--text-muted);">(VALIDATED)</span></td>
+        <td style="font-size: 11px;">1 pings</td>
+        <td><span class="badge badge-med">MEDIUM</span></td>
+        <td class="mono" style="font-size: 11px;">13.08286N, 80.27051E (±3.1m)</td>
+        <td style="font-weight: 600; font-size: 11px;">UNREVIEWED</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Section: Detailed Acoustic Forensic Profiles -->
+  <h2>2. Detailed Acoustic Forensic Evidence & Recommendations</h2>
+  <div class="contact-block">
+    <div class="contact-header">
+      <div>
+        <span class="contact-id">AF-001 &bull; OTHER_MAN_MADE</span>
+        <span style="margin-left: 12px; font-size: 12px; color: var(--text-muted);">Acoustic Pattern: <strong>AMBIGUOUS ANOMALY</strong></span>
+      </div>
+      <div>
+        <span class="badge badge-review">REVIEW PRIORITY</span>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- Evidence Bullets -->
+      <div>
+        <div style="font-weight: 600; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; color: var(--navy-800);">Acoustic Forensics ("Why Flagged")</div>
+        <ul class="bullet-list"><li>Strong echo contrast (6.31x ambient seabed) indicates highly reflective acoustic boundary</li><li>Weak or partially occluded shadow signature</li><li>High texture variance indicates irregular, complex surface roughness</li>
+        </ul>
+        <div style="margin-top: 12px; font-size: 11px; color: var(--text-muted);">
+          Echo Contrast: <strong>6.31x</strong> | 
+          Shadow Signature: <strong>WEAK</strong> | 
+          Relief Height: <strong>~4.32m</strong>
+        </div>
+      </div>
+
+      <!-- Action Recommendation & Review -->
+      <div style="background: var(--sand-50); padding: 14px; border: 1px solid var(--border); border-radius: 4px;">
+        <div style="font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--navy-700); margin-bottom: 4px;">Recommended Next Hydrographic Action</div>
+        <div style="font-weight: 700; font-size: 13px; color: var(--navy-900);">Execute high-frequency (800-900 kHz) close-range inspection pass</div>
+        <p style="font-size: 11px; color: var(--text-dark); margin-top: 6px; line-height: 1.4;">Target displays an uncataloged acoustic signature. Switch side-scan sonar to high-frequency identification mode and run an offset line at 25m lateral distance to resolve micro-structural features.</p>
+        
+        <div style="margin-top: 12px; padding-top: 8px; border-top: 1px dashed var(--border); font-size: 11px;">
+          <strong>Operator Confirmation:</strong> Pending Analyst Review 
+          <span style="color: var(--text-muted);">(UNREVIEWED)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-block">
+    <div class="contact-header">
+      <div>
+        <span class="contact-id">AF-002 &bull; NATURAL_FORMATION</span>
+        <span style="margin-left: 12px; font-size: 12px; color: var(--text-muted);">Acoustic Pattern: <strong>AMBIGUOUS ANOMALY</strong></span>
+      </div>
+      <div>
+        <span class="badge badge-med">MEDIUM PRIORITY</span>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- Evidence Bullets -->
+      <div>
+        <div style="font-weight: 600; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; color: var(--navy-800);">Acoustic Forensics ("Why Flagged")</div>
+        <ul class="bullet-list"><li>Strong echo contrast (8.23x ambient seabed) indicates highly reflective acoustic boundary</li><li>Weak or partially occluded shadow signature</li><li>High texture variance indicates irregular, complex surface roughness</li>
+        </ul>
+        <div style="margin-top: 12px; font-size: 11px; color: var(--text-muted);">
+          Echo Contrast: <strong>8.23x</strong> | 
+          Shadow Signature: <strong>WEAK</strong> | 
+          Relief Height: <strong>~5.0m</strong>
+        </div>
+      </div>
+
+      <!-- Action Recommendation & Review -->
+      <div style="background: var(--sand-50); padding: 14px; border: 1px solid var(--border); border-radius: 4px;">
+        <div style="font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--navy-700); margin-bottom: 4px;">Recommended Next Hydrographic Action</div>
+        <div style="font-weight: 700; font-size: 13px; color: var(--navy-900);">Execute high-frequency (800-900 kHz) close-range inspection pass</div>
+        <p style="font-size: 11px; color: var(--text-dark); margin-top: 6px; line-height: 1.4;">Target displays an uncataloged acoustic signature. Switch side-scan sonar to high-frequency identification mode and run an offset line at 25m lateral distance to resolve micro-structural features.</p>
+        
+        <div style="margin-top: 12px; padding-top: 8px; border-top: 1px dashed var(--border); font-size: 11px;">
+          <strong>Operator Confirmation:</strong> Pending Analyst Review 
+          <span style="color: var(--text-muted);">(UNREVIEWED)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-block">
+    <div class="contact-header">
+      <div>
+        <span class="contact-id">AF-003 &bull; CYLINDRICAL_OBJECT</span>
+        <span style="margin-left: 12px; font-size: 12px; color: var(--text-muted);">Acoustic Pattern: <strong>AMBIGUOUS ANOMALY</strong></span>
+      </div>
+      <div>
+        <span class="badge badge-med">MEDIUM PRIORITY</span>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- Evidence Bullets -->
+      <div>
+        <div style="font-weight: 600; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; color: var(--navy-800);">Acoustic Forensics ("Why Flagged")</div>
+        <ul class="bullet-list"><li>Strong echo contrast (2.08x ambient seabed) indicates highly reflective acoustic boundary</li><li>Weak or partially occluded shadow signature</li><li>High geometric regularity (aspect ratio: 1.24, convexity: 0.933) atypical of natural geology</li><li>High texture variance indicates irregular, complex surface roughness</li>
+        </ul>
+        <div style="margin-top: 12px; font-size: 11px; color: var(--text-muted);">
+          Echo Contrast: <strong>2.08x</strong> | 
+          Shadow Signature: <strong>WEAK</strong> | 
+          Relief Height: <strong>~3.29m</strong>
+        </div>
+      </div>
+
+      <!-- Action Recommendation & Review -->
+      <div style="background: var(--sand-50); padding: 14px; border: 1px solid var(--border); border-radius: 4px;">
+        <div style="font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--navy-700); margin-bottom: 4px;">Recommended Next Hydrographic Action</div>
+        <div style="font-weight: 700; font-size: 13px; color: var(--navy-900);">Collect an overlapping survey pass (30% swath overlap)</div>
+        <p style="font-size: 11px; color: var(--text-dark); margin-top: 6px; line-height: 1.4;">Contact was only observed on a single sonar ping. Execute an adjacent parallel trackline with 30-40% lateral overlap to confirm target persistence against transient fish schools or acoustic interference.</p>
+        
+        <div style="margin-top: 12px; padding-top: 8px; border-top: 1px dashed var(--border); font-size: 11px;">
+          <strong>Operator Confirmation:</strong> Pending Analyst Review 
+          <span style="color: var(--text-muted);">(UNREVIEWED)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-block">
+    <div class="contact-header">
+      <div>
+        <span class="contact-id">AF-004 &bull; SHIPWRECK</span>
+        <span style="margin-left: 12px; font-size: 12px; color: var(--text-muted);">Acoustic Pattern: <strong>AMBIGUOUS ANOMALY</strong></span>
+      </div>
+      <div>
+        <span class="badge badge-review">REVIEW PRIORITY</span>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- Evidence Bullets -->
+      <div>
+        <div style="font-weight: 600; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; color: var(--navy-800);">Acoustic Forensics ("Why Flagged")</div>
+        <ul class="bullet-list"><li>Strong echo contrast (26.41x ambient seabed) indicates highly reflective acoustic boundary</li><li>Weak or partially occluded shadow signature</li><li>High texture variance indicates irregular, complex surface roughness</li>
+        </ul>
+        <div style="margin-top: 12px; font-size: 11px; color: var(--text-muted);">
+          Echo Contrast: <strong>26.41x</strong> | 
+          Shadow Signature: <strong>WEAK</strong> | 
+          Relief Height: <strong>~2.06m</strong>
+        </div>
+      </div>
+
+      <!-- Action Recommendation & Review -->
+      <div style="background: var(--sand-50); padding: 14px; border: 1px solid var(--border); border-radius: 4px;">
+        <div style="font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--navy-700); margin-bottom: 4px;">Recommended Next Hydrographic Action</div>
+        <div style="font-weight: 700; font-size: 13px; color: var(--navy-900);">Execute high-frequency (800-900 kHz) close-range inspection pass</div>
+        <p style="font-size: 11px; color: var(--text-dark); margin-top: 6px; line-height: 1.4;">Target displays an uncataloged acoustic signature. Switch side-scan sonar to high-frequency identification mode and run an offset line at 25m lateral distance to resolve micro-structural features.</p>
+        
+        <div style="margin-top: 12px; padding-top: 8px; border-top: 1px dashed var(--border); font-size: 11px;">
+          <strong>Operator Confirmation:</strong> Pending Analyst Review 
+          <span style="color: var(--text-muted);">(UNREVIEWED)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-block">
+    <div class="contact-header">
+      <div>
+        <span class="contact-id">AF-005 &bull; MINE_LIKE_OBJECT</span>
+        <span style="margin-left: 12px; font-size: 12px; color: var(--text-muted);">Acoustic Pattern: <strong>AMBIGUOUS ANOMALY</strong></span>
+      </div>
+      <div>
+        <span class="badge badge-review">REVIEW PRIORITY</span>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- Evidence Bullets -->
+      <div>
+        <div style="font-weight: 600; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; color: var(--navy-800);">Acoustic Forensics ("Why Flagged")</div>
+        <ul class="bullet-list"><li>Strong echo contrast (20.99x ambient seabed) indicates highly reflective acoustic boundary</li><li>Weak or partially occluded shadow signature</li><li>High texture variance indicates irregular, complex surface roughness</li>
+        </ul>
+        <div style="margin-top: 12px; font-size: 11px; color: var(--text-muted);">
+          Echo Contrast: <strong>20.99x</strong> | 
+          Shadow Signature: <strong>WEAK</strong> | 
+          Relief Height: <strong>~3.03m</strong>
+        </div>
+      </div>
+
+      <!-- Action Recommendation & Review -->
+      <div style="background: var(--sand-50); padding: 14px; border: 1px solid var(--border); border-radius: 4px;">
+        <div style="font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--navy-700); margin-bottom: 4px;">Recommended Next Hydrographic Action</div>
+        <div style="font-weight: 700; font-size: 13px; color: var(--navy-900);">Execute high-frequency (800-900 kHz) close-range inspection pass</div>
+        <p style="font-size: 11px; color: var(--text-dark); margin-top: 6px; line-height: 1.4;">Target displays an uncataloged acoustic signature. Switch side-scan sonar to high-frequency identification mode and run an offset line at 25m lateral distance to resolve micro-structural features.</p>
+        
+        <div style="margin-top: 12px; padding-top: 8px; border-top: 1px dashed var(--border); font-size: 11px;">
+          <strong>Operator Confirmation:</strong> Pending Analyst Review 
+          <span style="color: var(--text-muted);">(UNREVIEWED)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-block">
+    <div class="contact-header">
+      <div>
+        <span class="contact-id">AF-006 &bull; MINE_LIKE_OBJECT</span>
+        <span style="margin-left: 12px; font-size: 12px; color: var(--text-muted);">Acoustic Pattern: <strong>AMBIGUOUS ANOMALY</strong></span>
+      </div>
+      <div>
+        <span class="badge badge-med">MEDIUM PRIORITY</span>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- Evidence Bullets -->
+      <div>
+        <div style="font-weight: 600; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; color: var(--navy-800);">Acoustic Forensics ("Why Flagged")</div>
+        <ul class="bullet-list"><li>Strong echo contrast (2.22x ambient seabed) indicates highly reflective acoustic boundary</li><li>Weak or partially occluded shadow signature</li><li>High texture variance indicates irregular, complex surface roughness</li>
+        </ul>
+        <div style="margin-top: 12px; font-size: 11px; color: var(--text-muted);">
+          Echo Contrast: <strong>2.22x</strong> | 
+          Shadow Signature: <strong>WEAK</strong> | 
+          Relief Height: <strong>~0.57m</strong>
+        </div>
+      </div>
+
+      <!-- Action Recommendation & Review -->
+      <div style="background: var(--sand-50); padding: 14px; border: 1px solid var(--border); border-radius: 4px;">
+        <div style="font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--navy-700); margin-bottom: 4px;">Recommended Next Hydrographic Action</div>
+        <div style="font-weight: 700; font-size: 13px; color: var(--navy-900);">Collect an overlapping survey pass (30% swath overlap)</div>
+        <p style="font-size: 11px; color: var(--text-dark); margin-top: 6px; line-height: 1.4;">Contact was only observed on a single sonar ping. Execute an adjacent parallel trackline with 30-40% lateral overlap to confirm target persistence against transient fish schools or acoustic interference.</p>
+        
+        <div style="margin-top: 12px; padding-top: 8px; border-top: 1px dashed var(--border); font-size: 11px;">
+          <strong>Operator Confirmation:</strong> Pending Analyst Review 
+          <span style="color: var(--text-muted);">(UNREVIEWED)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-block">
+    <div class="contact-header">
+      <div>
+        <span class="contact-id">AF-007 &bull; PIPELINE</span>
+        <span style="margin-left: 12px; font-size: 12px; color: var(--text-muted);">Acoustic Pattern: <strong>CYLINDRICAL / LINEAR BODY</strong></span>
+      </div>
+      <div>
+        <span class="badge badge-med">MEDIUM PRIORITY</span>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- Evidence Bullets -->
+      <div>
+        <div style="font-weight: 600; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; color: var(--navy-800);">Acoustic Forensics ("Why Flagged")</div>
+        <ul class="bullet-list"><li>Strong echo contrast (2.92x ambient seabed) indicates highly reflective acoustic boundary</li><li>Weak or partially occluded shadow signature</li><li>High geometric regularity (aspect ratio: 3.8, convexity: 0.863) atypical of natural geology</li><li>High texture variance indicates irregular, complex surface roughness</li>
+        </ul>
+        <div style="margin-top: 12px; font-size: 11px; color: var(--text-muted);">
+          Echo Contrast: <strong>2.92x</strong> | 
+          Shadow Signature: <strong>WEAK</strong> | 
+          Relief Height: <strong>~0.0m</strong>
+        </div>
+      </div>
+
+      <!-- Action Recommendation & Review -->
+      <div style="background: var(--sand-50); padding: 14px; border: 1px solid var(--border); border-radius: 4px;">
+        <div style="font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--navy-700); margin-bottom: 4px;">Recommended Next Hydrographic Action</div>
+        <div style="font-weight: 700; font-size: 13px; color: var(--navy-900);">Collect an overlapping survey pass (30% swath overlap)</div>
+        <p style="font-size: 11px; color: var(--text-dark); margin-top: 6px; line-height: 1.4;">Contact was only observed on a single sonar ping. Execute an adjacent parallel trackline with 30-40% lateral overlap to confirm target persistence against transient fish schools or acoustic interference.</p>
+        
+        <div style="margin-top: 12px; padding-top: 8px; border-top: 1px dashed var(--border); font-size: 11px;">
+          <strong>Operator Confirmation:</strong> Pending Analyst Review 
+          <span style="color: var(--text-muted);">(UNREVIEWED)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-block">
+    <div class="contact-header">
+      <div>
+        <span class="contact-id">AF-008 &bull; NATURAL_FORMATION</span>
+        <span style="margin-left: 12px; font-size: 12px; color: var(--text-muted);">Acoustic Pattern: <strong>AMBIGUOUS ANOMALY</strong></span>
+      </div>
+      <div>
+        <span class="badge badge-med">MEDIUM PRIORITY</span>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- Evidence Bullets -->
+      <div>
+        <div style="font-weight: 600; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; color: var(--navy-800);">Acoustic Forensics ("Why Flagged")</div>
+        <ul class="bullet-list"><li>Strong echo contrast (2.06x ambient seabed) indicates highly reflective acoustic boundary</li><li>Weak or partially occluded shadow signature</li><li>High geometric regularity (aspect ratio: 1.67, convexity: 1.0) atypical of natural geology</li><li>High texture variance indicates irregular, complex surface roughness</li>
+        </ul>
+        <div style="margin-top: 12px; font-size: 11px; color: var(--text-muted);">
+          Echo Contrast: <strong>2.06x</strong> | 
+          Shadow Signature: <strong>WEAK</strong> | 
+          Relief Height: <strong>~3.29m</strong>
+        </div>
+      </div>
+
+      <!-- Action Recommendation & Review -->
+      <div style="background: var(--sand-50); padding: 14px; border: 1px solid var(--border); border-radius: 4px;">
+        <div style="font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--navy-700); margin-bottom: 4px;">Recommended Next Hydrographic Action</div>
+        <div style="font-weight: 700; font-size: 13px; color: var(--navy-900);">Perform a reciprocal pass from the opposite heading (180° offset)</div>
+        <p style="font-size: 11px; color: var(--text-dark); margin-top: 6px; line-height: 1.4;">Contact exhibits strong highlight reflection but occluded shadow. Run an inverted survey line from the opposite heading to illuminate the opposing face and cast a projected acoustic shadow down-slope.</p>
+        
+        <div style="margin-top: 12px; padding-top: 8px; border-top: 1px dashed var(--border); font-size: 11px;">
+          <strong>Operator Confirmation:</strong> Pending Analyst Review 
+          <span style="color: var(--text-muted);">(UNREVIEWED)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-block">
+    <div class="contact-header">
+      <div>
+        <span class="contact-id">AF-009 &bull; MINE_LIKE_OBJECT</span>
+        <span style="margin-left: 12px; font-size: 12px; color: var(--text-muted);">Acoustic Pattern: <strong>AMBIGUOUS ANOMALY</strong></span>
+      </div>
+      <div>
+        <span class="badge badge-med">MEDIUM PRIORITY</span>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- Evidence Bullets -->
+      <div>
+        <div style="font-weight: 600; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; color: var(--navy-800);">Acoustic Forensics ("Why Flagged")</div>
+        <ul class="bullet-list"><li>Strong echo contrast (2.84x ambient seabed) indicates highly reflective acoustic boundary</li><li>Weak or partially occluded shadow signature</li><li>High geometric regularity (aspect ratio: 1.5, convexity: 1.0) atypical of natural geology</li><li>High texture variance indicates irregular, complex surface roughness</li>
+        </ul>
+        <div style="margin-top: 12px; font-size: 11px; color: var(--text-muted);">
+          Echo Contrast: <strong>2.84x</strong> | 
+          Shadow Signature: <strong>WEAK</strong> | 
+          Relief Height: <strong>~0.0m</strong>
+        </div>
+      </div>
+
+      <!-- Action Recommendation & Review -->
+      <div style="background: var(--sand-50); padding: 14px; border: 1px solid var(--border); border-radius: 4px;">
+        <div style="font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--navy-700); margin-bottom: 4px;">Recommended Next Hydrographic Action</div>
+        <div style="font-weight: 700; font-size: 13px; color: var(--navy-900);">Collect an overlapping survey pass (30% swath overlap)</div>
+        <p style="font-size: 11px; color: var(--text-dark); margin-top: 6px; line-height: 1.4;">Contact was only observed on a single sonar ping. Execute an adjacent parallel trackline with 30-40% lateral overlap to confirm target persistence against transient fish schools or acoustic interference.</p>
+        
+        <div style="margin-top: 12px; padding-top: 8px; border-top: 1px dashed var(--border); font-size: 11px;">
+          <strong>Operator Confirmation:</strong> Pending Analyst Review 
+          <span style="color: var(--text-muted);">(UNREVIEWED)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-block">
+    <div class="contact-header">
+      <div>
+        <span class="contact-id">AF-010 &bull; CYLINDRICAL_OBJECT</span>
+        <span style="margin-left: 12px; font-size: 12px; color: var(--text-muted);">Acoustic Pattern: <strong>AMBIGUOUS ANOMALY</strong></span>
+      </div>
+      <div>
+        <span class="badge badge-med">MEDIUM PRIORITY</span>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- Evidence Bullets -->
+      <div>
+        <div style="font-weight: 600; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; color: var(--navy-800);">Acoustic Forensics ("Why Flagged")</div>
+        <ul class="bullet-list"><li>Strong echo contrast (1.91x ambient seabed) indicates highly reflective acoustic boundary</li><li>Weak or partially occluded shadow signature</li><li>High texture variance indicates irregular, complex surface roughness</li>
+        </ul>
+        <div style="margin-top: 12px; font-size: 11px; color: var(--text-muted);">
+          Echo Contrast: <strong>1.91x</strong> | 
+          Shadow Signature: <strong>WEAK</strong> | 
+          Relief Height: <strong>~3.29m</strong>
+        </div>
+      </div>
+
+      <!-- Action Recommendation & Review -->
+      <div style="background: var(--sand-50); padding: 14px; border: 1px solid var(--border); border-radius: 4px;">
+        <div style="font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--navy-700); margin-bottom: 4px;">Recommended Next Hydrographic Action</div>
+        <div style="font-weight: 700; font-size: 13px; color: var(--navy-900);">Perform a reciprocal pass from the opposite heading (180° offset)</div>
+        <p style="font-size: 11px; color: var(--text-dark); margin-top: 6px; line-height: 1.4;">Contact exhibits strong highlight reflection but occluded shadow. Run an inverted survey line from the opposite heading to illuminate the opposing face and cast a projected acoustic shadow down-slope.</p>
+        
+        <div style="margin-top: 12px; padding-top: 8px; border-top: 1px dashed var(--border); font-size: 11px;">
+          <strong>Operator Confirmation:</strong> Pending Analyst Review 
+          <span style="color: var(--text-muted);">(UNREVIEWED)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-block">
+    <div class="contact-header">
+      <div>
+        <span class="contact-id">AF-011 &bull; MINE_LIKE_OBJECT</span>
+        <span style="margin-left: 12px; font-size: 12px; color: var(--text-muted);">Acoustic Pattern: <strong>AMBIGUOUS ANOMALY</strong></span>
+      </div>
+      <div>
+        <span class="badge badge-med">MEDIUM PRIORITY</span>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- Evidence Bullets -->
+      <div>
+        <div style="font-weight: 600; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; color: var(--navy-800);">Acoustic Forensics ("Why Flagged")</div>
+        <ul class="bullet-list"><li>Strong echo contrast (1.84x ambient seabed) indicates highly reflective acoustic boundary</li><li>Weak or partially occluded shadow signature</li><li>High texture variance indicates irregular, complex surface roughness</li>
+        </ul>
+        <div style="margin-top: 12px; font-size: 11px; color: var(--text-muted);">
+          Echo Contrast: <strong>1.84x</strong> | 
+          Shadow Signature: <strong>WEAK</strong> | 
+          Relief Height: <strong>~3.29m</strong>
+        </div>
+      </div>
+
+      <!-- Action Recommendation & Review -->
+      <div style="background: var(--sand-50); padding: 14px; border: 1px solid var(--border); border-radius: 4px;">
+        <div style="font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--navy-700); margin-bottom: 4px;">Recommended Next Hydrographic Action</div>
+        <div style="font-weight: 700; font-size: 13px; color: var(--navy-900);">Collect an overlapping survey pass (30% swath overlap)</div>
+        <p style="font-size: 11px; color: var(--text-dark); margin-top: 6px; line-height: 1.4;">Contact was only observed on a single sonar ping. Execute an adjacent parallel trackline with 30-40% lateral overlap to confirm target persistence against transient fish schools or acoustic interference.</p>
+        
+        <div style="margin-top: 12px; padding-top: 8px; border-top: 1px dashed var(--border); font-size: 11px;">
+          <strong>Operator Confirmation:</strong> Pending Analyst Review 
+          <span style="color: var(--text-muted);">(UNREVIEWED)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-block">
+    <div class="contact-header">
+      <div>
+        <span class="contact-id">AF-012 &bull; OTHER_MAN_MADE</span>
+        <span style="margin-left: 12px; font-size: 12px; color: var(--text-muted);">Acoustic Pattern: <strong>AMBIGUOUS ANOMALY</strong></span>
+      </div>
+      <div>
+        <span class="badge badge-med">MEDIUM PRIORITY</span>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- Evidence Bullets -->
+      <div>
+        <div style="font-weight: 600; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; color: var(--navy-800);">Acoustic Forensics ("Why Flagged")</div>
+        <ul class="bullet-list"><li>Strong echo contrast (1.89x ambient seabed) indicates highly reflective acoustic boundary</li><li>Weak or partially occluded shadow signature</li><li>High texture variance indicates irregular, complex surface roughness</li>
+        </ul>
+        <div style="margin-top: 12px; font-size: 11px; color: var(--text-muted);">
+          Echo Contrast: <strong>1.89x</strong> | 
+          Shadow Signature: <strong>WEAK</strong> | 
+          Relief Height: <strong>~3.02m</strong>
+        </div>
+      </div>
+
+      <!-- Action Recommendation & Review -->
+      <div style="background: var(--sand-50); padding: 14px; border: 1px solid var(--border); border-radius: 4px;">
+        <div style="font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--navy-700); margin-bottom: 4px;">Recommended Next Hydrographic Action</div>
+        <div style="font-weight: 700; font-size: 13px; color: var(--navy-900);">Collect an overlapping survey pass (30% swath overlap)</div>
+        <p style="font-size: 11px; color: var(--text-dark); margin-top: 6px; line-height: 1.4;">Contact was only observed on a single sonar ping. Execute an adjacent parallel trackline with 30-40% lateral overlap to confirm target persistence against transient fish schools or acoustic interference.</p>
+        
+        <div style="margin-top: 12px; padding-top: 8px; border-top: 1px dashed var(--border); font-size: 11px;">
+          <strong>Operator Confirmation:</strong> Pending Analyst Review 
+          <span style="color: var(--text-muted);">(UNREVIEWED)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-block">
+    <div class="contact-header">
+      <div>
+        <span class="contact-id">AF-013 &bull; PIPELINE</span>
+        <span style="margin-left: 12px; font-size: 12px; color: var(--text-muted);">Acoustic Pattern: <strong>AMBIGUOUS ANOMALY</strong></span>
+      </div>
+      <div>
+        <span class="badge badge-med">MEDIUM PRIORITY</span>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- Evidence Bullets -->
+      <div>
+        <div style="font-weight: 600; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; color: var(--navy-800);">Acoustic Forensics ("Why Flagged")</div>
+        <ul class="bullet-list"><li>Strong echo contrast (1.72x ambient seabed) indicates highly reflective acoustic boundary</li><li>Weak or partially occluded shadow signature</li><li>High geometric regularity (aspect ratio: 1.0, convexity: 1.0) atypical of natural geology</li><li>High texture variance indicates irregular, complex surface roughness</li>
+        </ul>
+        <div style="margin-top: 12px; font-size: 11px; color: var(--text-muted);">
+          Echo Contrast: <strong>1.72x</strong> | 
+          Shadow Signature: <strong>WEAK</strong> | 
+          Relief Height: <strong>~0.0m</strong>
+        </div>
+      </div>
+
+      <!-- Action Recommendation & Review -->
+      <div style="background: var(--sand-50); padding: 14px; border: 1px solid var(--border); border-radius: 4px;">
+        <div style="font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--navy-700); margin-bottom: 4px;">Recommended Next Hydrographic Action</div>
+        <div style="font-weight: 700; font-size: 13px; color: var(--navy-900);">Collect an overlapping survey pass (30% swath overlap)</div>
+        <p style="font-size: 11px; color: var(--text-dark); margin-top: 6px; line-height: 1.4;">Contact was only observed on a single sonar ping. Execute an adjacent parallel trackline with 30-40% lateral overlap to confirm target persistence against transient fish schools or acoustic interference.</p>
+        
+        <div style="margin-top: 12px; padding-top: 8px; border-top: 1px dashed var(--border); font-size: 11px;">
+          <strong>Operator Confirmation:</strong> Pending Analyst Review 
+          <span style="color: var(--text-muted);">(UNREVIEWED)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-block">
+    <div class="contact-header">
+      <div>
+        <span class="contact-id">AF-014 &bull; DERELICT_GEAR</span>
+        <span style="margin-left: 12px; font-size: 12px; color: var(--text-muted);">Acoustic Pattern: <strong>MAN-MADE CANDIDATE</strong></span>
+      </div>
+      <div>
+        <span class="badge badge-high">HIGH PRIORITY</span>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- Evidence Bullets -->
+      <div>
+        <div style="font-weight: 600; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; color: var(--navy-800);">Acoustic Forensics ("Why Flagged")</div>
+        <ul class="bullet-list"><li>Strong echo contrast (2.61x ambient seabed) indicates highly reflective acoustic boundary</li><li>Moderate acoustic shadow present (11.79m relief shadow)</li><li>High texture variance indicates irregular, complex surface roughness</li>
+        </ul>
+        <div style="margin-top: 12px; font-size: 11px; color: var(--text-muted);">
+          Echo Contrast: <strong>2.61x</strong> | 
+          Shadow Signature: <strong>MODERATE</strong> | 
+          Relief Height: <strong>~3.78m</strong>
+        </div>
+      </div>
+
+      <!-- Action Recommendation & Review -->
+      <div style="background: var(--sand-50); padding: 14px; border: 1px solid var(--border); border-radius: 4px;">
+        <div style="font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--navy-700); margin-bottom: 4px;">Recommended Next Hydrographic Action</div>
+        <div style="font-weight: 700; font-size: 13px; color: var(--navy-900);">Nominate for visual confirmation via ROV or diver inspection</div>
+        <p style="font-size: 11px; color: var(--text-dark); margin-top: 6px; line-height: 1.4;">High acoustic confidence (97%) with verified multi-ping persistence. Transfer geodetic coordinates to vessel dynamic positioning (DP) system for optical camera confirmation and recovery planning.</p>
+        
+        <div style="margin-top: 12px; padding-top: 8px; border-top: 1px dashed var(--border); font-size: 11px;">
+          <strong>Operator Confirmation:</strong> Pending Analyst Review 
+          <span style="color: var(--text-muted);">(UNREVIEWED)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-block">
+    <div class="contact-header">
+      <div>
+        <span class="contact-id">AF-015 &bull; NATURAL_FORMATION</span>
+        <span style="margin-left: 12px; font-size: 12px; color: var(--text-muted);">Acoustic Pattern: <strong>AMBIGUOUS ANOMALY</strong></span>
+      </div>
+      <div>
+        <span class="badge badge-review">LOW PRIORITY</span>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- Evidence Bullets -->
+      <div>
+        <div style="font-weight: 600; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; color: var(--navy-800);">Acoustic Forensics ("Why Flagged")</div>
+        <ul class="bullet-list"><li>Strong echo contrast (3.81x ambient seabed) indicates highly reflective acoustic boundary</li><li>Weak or partially occluded shadow signature</li><li>High geometric regularity (aspect ratio: 1.9, convexity: 0.957) atypical of natural geology</li><li>High texture variance indicates irregular, complex surface roughness</li>
+        </ul>
+        <div style="margin-top: 12px; font-size: 11px; color: var(--text-muted);">
+          Echo Contrast: <strong>3.81x</strong> | 
+          Shadow Signature: <strong>WEAK</strong> | 
+          Relief Height: <strong>~0.9m</strong>
+        </div>
+      </div>
+
+      <!-- Action Recommendation & Review -->
+      <div style="background: var(--sand-50); padding: 14px; border: 1px solid var(--border); border-radius: 4px;">
+        <div style="font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--navy-700); margin-bottom: 4px;">Recommended Next Hydrographic Action</div>
+        <div style="font-weight: 700; font-size: 13px; color: var(--navy-900);">Collect an overlapping survey pass (30% swath overlap)</div>
+        <p style="font-size: 11px; color: var(--text-dark); margin-top: 6px; line-height: 1.4;">Contact was only observed on a single sonar ping. Execute an adjacent parallel trackline with 30-40% lateral overlap to confirm target persistence against transient fish schools or acoustic interference.</p>
+        
+        <div style="margin-top: 12px; padding-top: 8px; border-top: 1px dashed var(--border); font-size: 11px;">
+          <strong>Operator Confirmation:</strong> Pending Analyst Review 
+          <span style="color: var(--text-muted);">(UNREVIEWED)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-block">
+    <div class="contact-header">
+      <div>
+        <span class="contact-id">AF-016 &bull; SHIPWRECK</span>
+        <span style="margin-left: 12px; font-size: 12px; color: var(--text-muted);">Acoustic Pattern: <strong>CYLINDRICAL / LINEAR BODY</strong></span>
+      </div>
+      <div>
+        <span class="badge badge-med">MEDIUM PRIORITY</span>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- Evidence Bullets -->
+      <div>
+        <div style="font-weight: 600; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; color: var(--navy-800);">Acoustic Forensics ("Why Flagged")</div>
+        <ul class="bullet-list"><li>Strong echo contrast (2.24x ambient seabed) indicates highly reflective acoustic boundary</li><li>Weak or partially occluded shadow signature</li><li>High geometric regularity (aspect ratio: 6.33, convexity: 0.93) atypical of natural geology</li><li>High texture variance indicates irregular, complex surface roughness</li>
+        </ul>
+        <div style="margin-top: 12px; font-size: 11px; color: var(--text-muted);">
+          Echo Contrast: <strong>2.24x</strong> | 
+          Shadow Signature: <strong>WEAK</strong> | 
+          Relief Height: <strong>~2.07m</strong>
+        </div>
+      </div>
+
+      <!-- Action Recommendation & Review -->
+      <div style="background: var(--sand-50); padding: 14px; border: 1px solid var(--border); border-radius: 4px;">
+        <div style="font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--navy-700); margin-bottom: 4px;">Recommended Next Hydrographic Action</div>
+        <div style="font-weight: 700; font-size: 13px; color: var(--navy-900);">Perform a reciprocal pass from the opposite heading (180° offset)</div>
+        <p style="font-size: 11px; color: var(--text-dark); margin-top: 6px; line-height: 1.4;">Contact exhibits strong highlight reflection but occluded shadow. Run an inverted survey line from the opposite heading to illuminate the opposing face and cast a projected acoustic shadow down-slope.</p>
+        
+        <div style="margin-top: 12px; padding-top: 8px; border-top: 1px dashed var(--border); font-size: 11px;">
+          <strong>Operator Confirmation:</strong> Pending Analyst Review 
+          <span style="color: var(--text-muted);">(UNREVIEWED)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-block">
+    <div class="contact-header">
+      <div>
+        <span class="contact-id">AF-017 &bull; PIPELINE</span>
+        <span style="margin-left: 12px; font-size: 12px; color: var(--text-muted);">Acoustic Pattern: <strong>AMBIGUOUS ANOMALY</strong></span>
+      </div>
+      <div>
+        <span class="badge badge-med">MEDIUM PRIORITY</span>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- Evidence Bullets -->
+      <div>
+        <div style="font-weight: 600; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; color: var(--navy-800);">Acoustic Forensics ("Why Flagged")</div>
+        <ul class="bullet-list"><li>Strong echo contrast (2.07x ambient seabed) indicates highly reflective acoustic boundary</li><li>Weak or partially occluded shadow signature</li><li>High geometric regularity (aspect ratio: 2.75, convexity: 1.0) atypical of natural geology</li><li>High texture variance indicates irregular, complex surface roughness</li>
+        </ul>
+        <div style="margin-top: 12px; font-size: 11px; color: var(--text-muted);">
+          Echo Contrast: <strong>2.07x</strong> | 
+          Shadow Signature: <strong>WEAK</strong> | 
+          Relief Height: <strong>~2.07m</strong>
+        </div>
+      </div>
+
+      <!-- Action Recommendation & Review -->
+      <div style="background: var(--sand-50); padding: 14px; border: 1px solid var(--border); border-radius: 4px;">
+        <div style="font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--navy-700); margin-bottom: 4px;">Recommended Next Hydrographic Action</div>
+        <div style="font-weight: 700; font-size: 13px; color: var(--navy-900);">Perform a reciprocal pass from the opposite heading (180° offset)</div>
+        <p style="font-size: 11px; color: var(--text-dark); margin-top: 6px; line-height: 1.4;">Contact exhibits strong highlight reflection but occluded shadow. Run an inverted survey line from the opposite heading to illuminate the opposing face and cast a projected acoustic shadow down-slope.</p>
+        
+        <div style="margin-top: 12px; padding-top: 8px; border-top: 1px dashed var(--border); font-size: 11px;">
+          <strong>Operator Confirmation:</strong> Pending Analyst Review 
+          <span style="color: var(--text-muted);">(UNREVIEWED)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-block">
+    <div class="contact-header">
+      <div>
+        <span class="contact-id">AF-018 &bull; CYLINDRICAL_OBJECT</span>
+        <span style="margin-left: 12px; font-size: 12px; color: var(--text-muted);">Acoustic Pattern: <strong>AMBIGUOUS ANOMALY</strong></span>
+      </div>
+      <div>
+        <span class="badge badge-med">MEDIUM PRIORITY</span>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- Evidence Bullets -->
+      <div>
+        <div style="font-weight: 600; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; color: var(--navy-800);">Acoustic Forensics ("Why Flagged")</div>
+        <ul class="bullet-list"><li>Strong echo contrast (3.89x ambient seabed) indicates highly reflective acoustic boundary</li><li>Weak or partially occluded shadow signature</li><li>High geometric regularity (aspect ratio: 1.58, convexity: 0.943) atypical of natural geology</li><li>High texture variance indicates irregular, complex surface roughness</li>
+        </ul>
+        <div style="margin-top: 12px; font-size: 11px; color: var(--text-muted);">
+          Echo Contrast: <strong>3.89x</strong> | 
+          Shadow Signature: <strong>WEAK</strong> | 
+          Relief Height: <strong>~0.37m</strong>
+        </div>
+      </div>
+
+      <!-- Action Recommendation & Review -->
+      <div style="background: var(--sand-50); padding: 14px; border: 1px solid var(--border); border-radius: 4px;">
+        <div style="font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--navy-700); margin-bottom: 4px;">Recommended Next Hydrographic Action</div>
+        <div style="font-weight: 700; font-size: 13px; color: var(--navy-900);">Collect an overlapping survey pass (30% swath overlap)</div>
+        <p style="font-size: 11px; color: var(--text-dark); margin-top: 6px; line-height: 1.4;">Contact was only observed on a single sonar ping. Execute an adjacent parallel trackline with 30-40% lateral overlap to confirm target persistence against transient fish schools or acoustic interference.</p>
+        
+        <div style="margin-top: 12px; padding-top: 8px; border-top: 1px dashed var(--border); font-size: 11px;">
+          <strong>Operator Confirmation:</strong> Pending Analyst Review 
+          <span style="color: var(--text-muted);">(UNREVIEWED)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-block">
+    <div class="contact-header">
+      <div>
+        <span class="contact-id">AF-019 &bull; PIPELINE</span>
+        <span style="margin-left: 12px; font-size: 12px; color: var(--text-muted);">Acoustic Pattern: <strong>CYLINDRICAL / LINEAR BODY</strong></span>
+      </div>
+      <div>
+        <span class="badge badge-med">MEDIUM PRIORITY</span>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- Evidence Bullets -->
+      <div>
+        <div style="font-weight: 600; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; color: var(--navy-800);">Acoustic Forensics ("Why Flagged")</div>
+        <ul class="bullet-list"><li>Strong echo contrast (2.39x ambient seabed) indicates highly reflective acoustic boundary</li><li>Weak or partially occluded shadow signature</li><li>High geometric regularity (aspect ratio: 5.67, convexity: 0.959) atypical of natural geology</li><li>High texture variance indicates irregular, complex surface roughness</li>
+        </ul>
+        <div style="margin-top: 12px; font-size: 11px; color: var(--text-muted);">
+          Echo Contrast: <strong>2.39x</strong> | 
+          Shadow Signature: <strong>WEAK</strong> | 
+          Relief Height: <strong>~0.66m</strong>
+        </div>
+      </div>
+
+      <!-- Action Recommendation & Review -->
+      <div style="background: var(--sand-50); padding: 14px; border: 1px solid var(--border); border-radius: 4px;">
+        <div style="font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--navy-700); margin-bottom: 4px;">Recommended Next Hydrographic Action</div>
+        <div style="font-weight: 700; font-size: 13px; color: var(--navy-900);">Perform a reciprocal pass from the opposite heading (180° offset)</div>
+        <p style="font-size: 11px; color: var(--text-dark); margin-top: 6px; line-height: 1.4;">Contact exhibits strong highlight reflection but occluded shadow. Run an inverted survey line from the opposite heading to illuminate the opposing face and cast a projected acoustic shadow down-slope.</p>
+        
+        <div style="margin-top: 12px; padding-top: 8px; border-top: 1px dashed var(--border); font-size: 11px;">
+          <strong>Operator Confirmation:</strong> Pending Analyst Review 
+          <span style="color: var(--text-muted);">(UNREVIEWED)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-block">
+    <div class="contact-header">
+      <div>
+        <span class="contact-id">AF-020 &bull; SHIPWRECK</span>
+        <span style="margin-left: 12px; font-size: 12px; color: var(--text-muted);">Acoustic Pattern: <strong>AMBIGUOUS ANOMALY</strong></span>
+      </div>
+      <div>
+        <span class="badge badge-med">MEDIUM PRIORITY</span>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- Evidence Bullets -->
+      <div>
+        <div style="font-weight: 600; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; color: var(--navy-800);">Acoustic Forensics ("Why Flagged")</div>
+        <ul class="bullet-list"><li>Strong echo contrast (2.63x ambient seabed) indicates highly reflective acoustic boundary</li><li>Weak or partially occluded shadow signature</li><li>High geometric regularity (aspect ratio: 1.0, convexity: 1.0) atypical of natural geology</li><li>High texture variance indicates irregular, complex surface roughness</li>
+        </ul>
+        <div style="margin-top: 12px; font-size: 11px; color: var(--text-muted);">
+          Echo Contrast: <strong>2.63x</strong> | 
+          Shadow Signature: <strong>WEAK</strong> | 
+          Relief Height: <strong>~0.0m</strong>
+        </div>
+      </div>
+
+      <!-- Action Recommendation & Review -->
+      <div style="background: var(--sand-50); padding: 14px; border: 1px solid var(--border); border-radius: 4px;">
+        <div style="font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--navy-700); margin-bottom: 4px;">Recommended Next Hydrographic Action</div>
+        <div style="font-weight: 700; font-size: 13px; color: var(--navy-900);">Collect an overlapping survey pass (30% swath overlap)</div>
+        <p style="font-size: 11px; color: var(--text-dark); margin-top: 6px; line-height: 1.4;">Contact was only observed on a single sonar ping. Execute an adjacent parallel trackline with 30-40% lateral overlap to confirm target persistence against transient fish schools or acoustic interference.</p>
+        
+        <div style="margin-top: 12px; padding-top: 8px; border-top: 1px dashed var(--border); font-size: 11px;">
+          <strong>Operator Confirmation:</strong> Pending Analyst Review 
+          <span style="color: var(--text-muted);">(UNREVIEWED)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-block">
+    <div class="contact-header">
+      <div>
+        <span class="contact-id">AF-021 &bull; PIPELINE</span>
+        <span style="margin-left: 12px; font-size: 12px; color: var(--text-muted);">Acoustic Pattern: <strong>CYLINDRICAL / LINEAR BODY</strong></span>
+      </div>
+      <div>
+        <span class="badge badge-review">REVIEW PRIORITY</span>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- Evidence Bullets -->
+      <div>
+        <div style="font-weight: 600; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; color: var(--navy-800);">Acoustic Forensics ("Why Flagged")</div>
+        <ul class="bullet-list"><li>Strong echo contrast (19.82x ambient seabed) indicates highly reflective acoustic boundary</li><li>Weak or partially occluded shadow signature</li><li>High geometric regularity (aspect ratio: 3.5, convexity: 0.826) atypical of natural geology</li><li>High texture variance indicates irregular, complex surface roughness</li>
+        </ul>
+        <div style="margin-top: 12px; font-size: 11px; color: var(--text-muted);">
+          Echo Contrast: <strong>19.82x</strong> | 
+          Shadow Signature: <strong>WEAK</strong> | 
+          Relief Height: <strong>~0.65m</strong>
+        </div>
+      </div>
+
+      <!-- Action Recommendation & Review -->
+      <div style="background: var(--sand-50); padding: 14px; border: 1px solid var(--border); border-radius: 4px;">
+        <div style="font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--navy-700); margin-bottom: 4px;">Recommended Next Hydrographic Action</div>
+        <div style="font-weight: 700; font-size: 13px; color: var(--navy-900);">Execute high-frequency (800-900 kHz) close-range inspection pass</div>
+        <p style="font-size: 11px; color: var(--text-dark); margin-top: 6px; line-height: 1.4;">Target displays an uncataloged acoustic signature. Switch side-scan sonar to high-frequency identification mode and run an offset line at 25m lateral distance to resolve micro-structural features.</p>
+        
+        <div style="margin-top: 12px; padding-top: 8px; border-top: 1px dashed var(--border); font-size: 11px;">
+          <strong>Operator Confirmation:</strong> Pending Analyst Review 
+          <span style="color: var(--text-muted);">(UNREVIEWED)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-block">
+    <div class="contact-header">
+      <div>
+        <span class="contact-id">AF-022 &bull; PIPELINE</span>
+        <span style="margin-left: 12px; font-size: 12px; color: var(--text-muted);">Acoustic Pattern: <strong>AMBIGUOUS ANOMALY</strong></span>
+      </div>
+      <div>
+        <span class="badge badge-med">MEDIUM PRIORITY</span>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- Evidence Bullets -->
+      <div>
+        <div style="font-weight: 600; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; color: var(--navy-800);">Acoustic Forensics ("Why Flagged")</div>
+        <ul class="bullet-list"><li>Strong echo contrast (4.32x ambient seabed) indicates highly reflective acoustic boundary</li><li>Weak or partially occluded shadow signature</li><li>High geometric regularity (aspect ratio: 1.0, convexity: 1.0) atypical of natural geology</li><li>High texture variance indicates irregular, complex surface roughness</li>
+        </ul>
+        <div style="margin-top: 12px; font-size: 11px; color: var(--text-muted);">
+          Echo Contrast: <strong>4.32x</strong> | 
+          Shadow Signature: <strong>WEAK</strong> | 
+          Relief Height: <strong>~0.0m</strong>
+        </div>
+      </div>
+
+      <!-- Action Recommendation & Review -->
+      <div style="background: var(--sand-50); padding: 14px; border: 1px solid var(--border); border-radius: 4px;">
+        <div style="font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--navy-700); margin-bottom: 4px;">Recommended Next Hydrographic Action</div>
+        <div style="font-weight: 700; font-size: 13px; color: var(--navy-900);">Collect an overlapping survey pass (30% swath overlap)</div>
+        <p style="font-size: 11px; color: var(--text-dark); margin-top: 6px; line-height: 1.4;">Contact was only observed on a single sonar ping. Execute an adjacent parallel trackline with 30-40% lateral overlap to confirm target persistence against transient fish schools or acoustic interference.</p>
+        
+        <div style="margin-top: 12px; padding-top: 8px; border-top: 1px dashed var(--border); font-size: 11px;">
+          <strong>Operator Confirmation:</strong> Pending Analyst Review 
+          <span style="color: var(--text-muted);">(UNREVIEWED)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-block">
+    <div class="contact-header">
+      <div>
+        <span class="contact-id">AF-023 &bull; DERELICT_GEAR</span>
+        <span style="margin-left: 12px; font-size: 12px; color: var(--text-muted);">Acoustic Pattern: <strong>AMBIGUOUS ANOMALY</strong></span>
+      </div>
+      <div>
+        <span class="badge badge-med">MEDIUM PRIORITY</span>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- Evidence Bullets -->
+      <div>
+        <div style="font-weight: 600; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; color: var(--navy-800);">Acoustic Forensics ("Why Flagged")</div>
+        <ul class="bullet-list"><li>Strong echo contrast (3.27x ambient seabed) indicates highly reflective acoustic boundary</li><li>Weak or partially occluded shadow signature</li><li>High geometric regularity (aspect ratio: 1.0, convexity: 1.0) atypical of natural geology</li><li>High texture variance indicates irregular, complex surface roughness</li>
+        </ul>
+        <div style="margin-top: 12px; font-size: 11px; color: var(--text-muted);">
+          Echo Contrast: <strong>3.27x</strong> | 
+          Shadow Signature: <strong>WEAK</strong> | 
+          Relief Height: <strong>~0.0m</strong>
+        </div>
+      </div>
+
+      <!-- Action Recommendation & Review -->
+      <div style="background: var(--sand-50); padding: 14px; border: 1px solid var(--border); border-radius: 4px;">
+        <div style="font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--navy-700); margin-bottom: 4px;">Recommended Next Hydrographic Action</div>
+        <div style="font-weight: 700; font-size: 13px; color: var(--navy-900);">Collect an overlapping survey pass (30% swath overlap)</div>
+        <p style="font-size: 11px; color: var(--text-dark); margin-top: 6px; line-height: 1.4;">Contact was only observed on a single sonar ping. Execute an adjacent parallel trackline with 30-40% lateral overlap to confirm target persistence against transient fish schools or acoustic interference.</p>
+        
+        <div style="margin-top: 12px; padding-top: 8px; border-top: 1px dashed var(--border); font-size: 11px;">
+          <strong>Operator Confirmation:</strong> Pending Analyst Review 
+          <span style="color: var(--text-muted);">(UNREVIEWED)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-block">
+    <div class="contact-header">
+      <div>
+        <span class="contact-id">AF-024 &bull; DERELICT_GEAR</span>
+        <span style="margin-left: 12px; font-size: 12px; color: var(--text-muted);">Acoustic Pattern: <strong>CYLINDRICAL / LINEAR BODY</strong></span>
+      </div>
+      <div>
+        <span class="badge badge-review">REVIEW PRIORITY</span>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- Evidence Bullets -->
+      <div>
+        <div style="font-weight: 600; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; color: var(--navy-800);">Acoustic Forensics ("Why Flagged")</div>
+        <ul class="bullet-list"><li>Strong echo contrast (2.27x ambient seabed) indicates highly reflective acoustic boundary</li><li>Weak or partially occluded shadow signature</li><li>High geometric regularity (aspect ratio: 9.67, convexity: 0.954) atypical of natural geology</li><li>High texture variance indicates irregular, complex surface roughness</li>
+        </ul>
+        <div style="margin-top: 12px; font-size: 11px; color: var(--text-muted);">
+          Echo Contrast: <strong>2.27x</strong> | 
+          Shadow Signature: <strong>WEAK</strong> | 
+          Relief Height: <strong>~0.7m</strong>
+        </div>
+      </div>
+
+      <!-- Action Recommendation & Review -->
+      <div style="background: var(--sand-50); padding: 14px; border: 1px solid var(--border); border-radius: 4px;">
+        <div style="font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--navy-700); margin-bottom: 4px;">Recommended Next Hydrographic Action</div>
+        <div style="font-weight: 700; font-size: 13px; color: var(--navy-900);">Execute high-frequency (800-900 kHz) close-range inspection pass</div>
+        <p style="font-size: 11px; color: var(--text-dark); margin-top: 6px; line-height: 1.4;">Target displays an uncataloged acoustic signature. Switch side-scan sonar to high-frequency identification mode and run an offset line at 25m lateral distance to resolve micro-structural features.</p>
+        
+        <div style="margin-top: 12px; padding-top: 8px; border-top: 1px dashed var(--border); font-size: 11px;">
+          <strong>Operator Confirmation:</strong> Pending Analyst Review 
+          <span style="color: var(--text-muted);">(UNREVIEWED)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-block">
+    <div class="contact-header">
+      <div>
+        <span class="contact-id">AF-025 &bull; OTHER_MAN_MADE</span>
+        <span style="margin-left: 12px; font-size: 12px; color: var(--text-muted);">Acoustic Pattern: <strong>AMBIGUOUS ANOMALY</strong></span>
+      </div>
+      <div>
+        <span class="badge badge-med">MEDIUM PRIORITY</span>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- Evidence Bullets -->
+      <div>
+        <div style="font-weight: 600; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; color: var(--navy-800);">Acoustic Forensics ("Why Flagged")</div>
+        <ul class="bullet-list"><li>Strong echo contrast (2.45x ambient seabed) indicates highly reflective acoustic boundary</li><li>Weak or partially occluded shadow signature</li><li>High geometric regularity (aspect ratio: 1.25, convexity: 1.0) atypical of natural geology</li><li>High texture variance indicates irregular, complex surface roughness</li>
+        </ul>
+        <div style="margin-top: 12px; font-size: 11px; color: var(--text-muted);">
+          Echo Contrast: <strong>2.45x</strong> | 
+          Shadow Signature: <strong>WEAK</strong> | 
+          Relief Height: <strong>~0.7m</strong>
+        </div>
+      </div>
+
+      <!-- Action Recommendation & Review -->
+      <div style="background: var(--sand-50); padding: 14px; border: 1px solid var(--border); border-radius: 4px;">
+        <div style="font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--navy-700); margin-bottom: 4px;">Recommended Next Hydrographic Action</div>
+        <div style="font-weight: 700; font-size: 13px; color: var(--navy-900);">Collect an overlapping survey pass (30% swath overlap)</div>
+        <p style="font-size: 11px; color: var(--text-dark); margin-top: 6px; line-height: 1.4;">Contact was only observed on a single sonar ping. Execute an adjacent parallel trackline with 30-40% lateral overlap to confirm target persistence against transient fish schools or acoustic interference.</p>
+        
+        <div style="margin-top: 12px; padding-top: 8px; border-top: 1px dashed var(--border); font-size: 11px;">
+          <strong>Operator Confirmation:</strong> Pending Analyst Review 
+          <span style="color: var(--text-muted);">(UNREVIEWED)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-block">
+    <div class="contact-header">
+      <div>
+        <span class="contact-id">AF-026 &bull; MINE_LIKE_OBJECT</span>
+        <span style="margin-left: 12px; font-size: 12px; color: var(--text-muted);">Acoustic Pattern: <strong>AMBIGUOUS ANOMALY</strong></span>
+      </div>
+      <div>
+        <span class="badge badge-med">MEDIUM PRIORITY</span>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- Evidence Bullets -->
+      <div>
+        <div style="font-weight: 600; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; color: var(--navy-800);">Acoustic Forensics ("Why Flagged")</div>
+        <ul class="bullet-list"><li>Strong echo contrast (2.53x ambient seabed) indicates highly reflective acoustic boundary</li><li>Weak or partially occluded shadow signature</li><li>High geometric regularity (aspect ratio: 1.0, convexity: 1.0) atypical of natural geology</li><li>High texture variance indicates irregular, complex surface roughness</li>
+        </ul>
+        <div style="margin-top: 12px; font-size: 11px; color: var(--text-muted);">
+          Echo Contrast: <strong>2.53x</strong> | 
+          Shadow Signature: <strong>WEAK</strong> | 
+          Relief Height: <strong>~0.0m</strong>
+        </div>
+      </div>
+
+      <!-- Action Recommendation & Review -->
+      <div style="background: var(--sand-50); padding: 14px; border: 1px solid var(--border); border-radius: 4px;">
+        <div style="font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--navy-700); margin-bottom: 4px;">Recommended Next Hydrographic Action</div>
+        <div style="font-weight: 700; font-size: 13px; color: var(--navy-900);">Collect an overlapping survey pass (30% swath overlap)</div>
+        <p style="font-size: 11px; color: var(--text-dark); margin-top: 6px; line-height: 1.4;">Contact was only observed on a single sonar ping. Execute an adjacent parallel trackline with 30-40% lateral overlap to confirm target persistence against transient fish schools or acoustic interference.</p>
+        
+        <div style="margin-top: 12px; padding-top: 8px; border-top: 1px dashed var(--border); font-size: 11px;">
+          <strong>Operator Confirmation:</strong> Pending Analyst Review 
+          <span style="color: var(--text-muted);">(UNREVIEWED)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-block">
+    <div class="contact-header">
+      <div>
+        <span class="contact-id">AF-027 &bull; CYLINDRICAL_OBJECT</span>
+        <span style="margin-left: 12px; font-size: 12px; color: var(--text-muted);">Acoustic Pattern: <strong>CYLINDRICAL / LINEAR BODY</strong></span>
+      </div>
+      <div>
+        <span class="badge badge-review">REVIEW PRIORITY</span>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- Evidence Bullets -->
+      <div>
+        <div style="font-weight: 600; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; color: var(--navy-800);">Acoustic Forensics ("Why Flagged")</div>
+        <ul class="bullet-list"><li>Strong echo contrast (2.41x ambient seabed) indicates highly reflective acoustic boundary</li><li>Weak or partially occluded shadow signature</li><li>High geometric regularity (aspect ratio: 9.67, convexity: 0.941) atypical of natural geology</li><li>High texture variance indicates irregular, complex surface roughness</li>
+        </ul>
+        <div style="margin-top: 12px; font-size: 11px; color: var(--text-muted);">
+          Echo Contrast: <strong>2.41x</strong> | 
+          Shadow Signature: <strong>WEAK</strong> | 
+          Relief Height: <strong>~1.57m</strong>
+        </div>
+      </div>
+
+      <!-- Action Recommendation & Review -->
+      <div style="background: var(--sand-50); padding: 14px; border: 1px solid var(--border); border-radius: 4px;">
+        <div style="font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--navy-700); margin-bottom: 4px;">Recommended Next Hydrographic Action</div>
+        <div style="font-weight: 700; font-size: 13px; color: var(--navy-900);">Execute high-frequency (800-900 kHz) close-range inspection pass</div>
+        <p style="font-size: 11px; color: var(--text-dark); margin-top: 6px; line-height: 1.4;">Target displays an uncataloged acoustic signature. Switch side-scan sonar to high-frequency identification mode and run an offset line at 25m lateral distance to resolve micro-structural features.</p>
+        
+        <div style="margin-top: 12px; padding-top: 8px; border-top: 1px dashed var(--border); font-size: 11px;">
+          <strong>Operator Confirmation:</strong> Pending Analyst Review 
+          <span style="color: var(--text-muted);">(UNREVIEWED)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-block">
+    <div class="contact-header">
+      <div>
+        <span class="contact-id">AF-028 &bull; SHIPWRECK</span>
+        <span style="margin-left: 12px; font-size: 12px; color: var(--text-muted);">Acoustic Pattern: <strong>AMBIGUOUS ANOMALY</strong></span>
+      </div>
+      <div>
+        <span class="badge badge-med">MEDIUM PRIORITY</span>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- Evidence Bullets -->
+      <div>
+        <div style="font-weight: 600; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; color: var(--navy-800);">Acoustic Forensics ("Why Flagged")</div>
+        <ul class="bullet-list"><li>Strong echo contrast (2.87x ambient seabed) indicates highly reflective acoustic boundary</li><li>Weak or partially occluded shadow signature</li><li>High geometric regularity (aspect ratio: 1.5, convexity: 1.0) atypical of natural geology</li><li>High texture variance indicates irregular, complex surface roughness</li>
+        </ul>
+        <div style="margin-top: 12px; font-size: 11px; color: var(--text-muted);">
+          Echo Contrast: <strong>2.87x</strong> | 
+          Shadow Signature: <strong>WEAK</strong> | 
+          Relief Height: <strong>~0.0m</strong>
+        </div>
+      </div>
+
+      <!-- Action Recommendation & Review -->
+      <div style="background: var(--sand-50); padding: 14px; border: 1px solid var(--border); border-radius: 4px;">
+        <div style="font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--navy-700); margin-bottom: 4px;">Recommended Next Hydrographic Action</div>
+        <div style="font-weight: 700; font-size: 13px; color: var(--navy-900);">Collect an overlapping survey pass (30% swath overlap)</div>
+        <p style="font-size: 11px; color: var(--text-dark); margin-top: 6px; line-height: 1.4;">Contact was only observed on a single sonar ping. Execute an adjacent parallel trackline with 30-40% lateral overlap to confirm target persistence against transient fish schools or acoustic interference.</p>
+        
+        <div style="margin-top: 12px; padding-top: 8px; border-top: 1px dashed var(--border); font-size: 11px;">
+          <strong>Operator Confirmation:</strong> Pending Analyst Review 
+          <span style="color: var(--text-muted);">(UNREVIEWED)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-block">
+    <div class="contact-header">
+      <div>
+        <span class="contact-id">AF-029 &bull; CYLINDRICAL_OBJECT</span>
+        <span style="margin-left: 12px; font-size: 12px; color: var(--text-muted);">Acoustic Pattern: <strong>CYLINDRICAL / LINEAR BODY</strong></span>
+      </div>
+      <div>
+        <span class="badge badge-review">REVIEW PRIORITY</span>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- Evidence Bullets -->
+      <div>
+        <div style="font-weight: 600; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; color: var(--navy-800);">Acoustic Forensics ("Why Flagged")</div>
+        <ul class="bullet-list"><li>Strong echo contrast (2.49x ambient seabed) indicates highly reflective acoustic boundary</li><li>Weak or partially occluded shadow signature</li><li>High geometric regularity (aspect ratio: 9.67, convexity: 0.831) atypical of natural geology</li><li>High texture variance indicates irregular, complex surface roughness</li>
+        </ul>
+        <div style="margin-top: 12px; font-size: 11px; color: var(--text-muted);">
+          Echo Contrast: <strong>2.49x</strong> | 
+          Shadow Signature: <strong>WEAK</strong> | 
+          Relief Height: <strong>~3.29m</strong>
+        </div>
+      </div>
+
+      <!-- Action Recommendation & Review -->
+      <div style="background: var(--sand-50); padding: 14px; border: 1px solid var(--border); border-radius: 4px;">
+        <div style="font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--navy-700); margin-bottom: 4px;">Recommended Next Hydrographic Action</div>
+        <div style="font-weight: 700; font-size: 13px; color: var(--navy-900);">Execute high-frequency (800-900 kHz) close-range inspection pass</div>
+        <p style="font-size: 11px; color: var(--text-dark); margin-top: 6px; line-height: 1.4;">Target displays an uncataloged acoustic signature. Switch side-scan sonar to high-frequency identification mode and run an offset line at 25m lateral distance to resolve micro-structural features.</p>
+        
+        <div style="margin-top: 12px; padding-top: 8px; border-top: 1px dashed var(--border); font-size: 11px;">
+          <strong>Operator Confirmation:</strong> Pending Analyst Review 
+          <span style="color: var(--text-muted);">(UNREVIEWED)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-block">
+    <div class="contact-header">
+      <div>
+        <span class="contact-id">AF-030 &bull; OTHER_MAN_MADE</span>
+        <span style="margin-left: 12px; font-size: 12px; color: var(--text-muted);">Acoustic Pattern: <strong>AMBIGUOUS ANOMALY</strong></span>
+      </div>
+      <div>
+        <span class="badge badge-med">MEDIUM PRIORITY</span>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- Evidence Bullets -->
+      <div>
+        <div style="font-weight: 600; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; color: var(--navy-800);">Acoustic Forensics ("Why Flagged")</div>
+        <ul class="bullet-list"><li>Strong echo contrast (3.07x ambient seabed) indicates highly reflective acoustic boundary</li><li>Weak or partially occluded shadow signature</li><li>High geometric regularity (aspect ratio: 1.0, convexity: 1.0) atypical of natural geology</li><li>High texture variance indicates irregular, complex surface roughness</li>
+        </ul>
+        <div style="margin-top: 12px; font-size: 11px; color: var(--text-muted);">
+          Echo Contrast: <strong>3.07x</strong> | 
+          Shadow Signature: <strong>WEAK</strong> | 
+          Relief Height: <strong>~0.45m</strong>
+        </div>
+      </div>
+
+      <!-- Action Recommendation & Review -->
+      <div style="background: var(--sand-50); padding: 14px; border: 1px solid var(--border); border-radius: 4px;">
+        <div style="font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--navy-700); margin-bottom: 4px;">Recommended Next Hydrographic Action</div>
+        <div style="font-weight: 700; font-size: 13px; color: var(--navy-900);">Collect an overlapping survey pass (30% swath overlap)</div>
+        <p style="font-size: 11px; color: var(--text-dark); margin-top: 6px; line-height: 1.4;">Contact was only observed on a single sonar ping. Execute an adjacent parallel trackline with 30-40% lateral overlap to confirm target persistence against transient fish schools or acoustic interference.</p>
+        
+        <div style="margin-top: 12px; padding-top: 8px; border-top: 1px dashed var(--border); font-size: 11px;">
+          <strong>Operator Confirmation:</strong> Pending Analyst Review 
+          <span style="color: var(--text-muted);">(UNREVIEWED)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Section: Scientific Honesty & System Limitations -->
+  <h2>3. System Limitations & Scientific Governance</h2>
+  <div style="font-size: 12px; color: var(--text-dark); line-height: 1.6;">
+    <p><strong>Sensor and Domain Generalization:</strong> Side-scan sonar acoustic backscatter varies significantly based on transducer carrier frequency (e.g. 100 kHz vs 900 kHz), grazing angle, thermal thermoclines, seabed sediment composition (sand ripples vs silt vs exposed bedrock), and vehicle motion (heave, pitch, roll). Automated inferences must be interpreted in domain context.</p>
+    <p style="margin-top: 8px;"><strong>Acoustic vs Metallurgical Distinction:</strong> Highlight contrast and shadow length yield geometrical and structural hypotheses (e.g. 'man-made candidate', 'cylindrical body'). Acoustic data alone cannot verify chemical material composition (e.g. steel vs fiberglass vs dense rock).</p>
+    <p style="margin-top: 8px;"><strong>Navigation Dependency:</strong> Geodetic positioning accuracy is directly constrained by the surface GNSS receiver, USBL acoustic beacon precision, and heading compass accuracy. Uncertainty error bounds (±&epsilon; meters) are strictly reported for all georeferenced contacts.</p>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div>AQUAFORGE Hydrographic System v1.0.0-prototype &bull; Team PRAYAS &bull; SIH26057</div>
+    <div>Ministry of Earth Sciences (MoES) / National Institute of Ocean Technology (NIOT)</div>
+  </div>
+
+</div>
+</body>
+</html>

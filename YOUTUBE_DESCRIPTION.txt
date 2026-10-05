@@ -1,0 +1,24 @@
+AQUAFORGE: AI-Powered Automated Underwater Marine Debris and Anomaly Detection System using Side-Scan Sonar Imagery
+Official Smart India Hackathon Problem: SIH26057
+Organization: Ministry of Earth Sciences (MoES) / National Institute of Ocean Technology (NIOT)
+Theme: Disaster Management | Category: Software | Team: PRAYAS
+
+Project Overview:
+AQUAFORGE is a serious, functioning operational prototype engineered for side-scan sonar (SSS) benthic survey inspection and autonomous underwater vehicle (AUV) integration. It automates the detection, acoustic forensic characterization, multi-ping persistence tracking, and WGS-84 geodetic positioning of anthropogenic marine debris (ghost nets, abandoned crab pots, shipwrecks, pipelines, cylinders) and unknown seafloor anomalies.
+
+Key Engineering Innovations:
+1. Zero Hallucinated / Fabricated Detections: All results stem from real OpenCV/ONNX inference, empirical calibration, and deterministic geodetic calculations.
+2. Multi-Cue Acoustic Forensic Fingerprint: Computes echo contrast, acoustic shadow ray-tracing (relief height estimation), GLCM texture entropy, and 2D spatial FFT frequency.
+3. Out-of-Distribution Novelty Detector: Safely identifies uncataloged acoustic anomalies and flags them for mandatory human review.
+4. Multi-Ping Persistence Tracking: Filters out transient fish schools and acoustic noise by clustering returns across sequential waterfall pings.
+5. WGS-84 Geolocation with Error Envelopes: Reports deterministic ±ε meter position uncertainty based on sensor altitude, heading, and GPS precision.
+6. Diagnostic Next-Best-Scan Engine: Answers what hydrographic observation should be collected next to resolve acoustic ambiguities.
+7. Human-in-the-Loop Audit Station: Immutable operator review workflow preserving raw neural detection provenance.
+
+Scientific References:
+- GhostVision (JMSE 2026, DOI: 10.3390/jmse14100951)
+- Physics-Informed Side-Scan Sonar Perception (IEEE TGRS 2026)
+- Learning Which Side to Scan (IEEE ICRA 2024, DOI: 10.1109/ICRA57147.2024.10611077)
+
+GitHub Repository: https://github.com/PRAYAS-SIH/AQUAFORGE
+Prototype Documentation: See README.md and DEMO_GUIDE.md in the repository.

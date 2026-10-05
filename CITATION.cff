@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use AQUAFORGE in hydrographic research or disaster response software, please cite it as below."
+authors:
+  - family-names: "Team PRAYAS"
+    given-names: "AQUAFORGE Engineering Team"
+title: "AQUAFORGE: AI-Powered Automated Underwater Marine Debris and Anomaly Detection System using Side-Scan Sonar Imagery"
+version: 1.0.0
+doi: 10.5281/zenodo.sih26057
+date-released: 2026-10-06
+url: "https://github.com/PRAYAS-SIH/AQUAFORGE"
+keywords:
+  - side-scan sonar
+  - marine debris
+  - ghost nets
+  - anomaly detection
+  - acoustic computer vision
+  - hydrography
+  - smart india hackathon

@@ -1,0 +1,18 @@
+services:
+  aquaforge:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: aquaforge-app
+    ports:
+      - "${PORT:-8000}:8000"
+    environment:
+      - PORT=8000
+      - HOST=0.0.0.0
+      - PUBLIC_APP_URL=http://localhost:8000
+    volumes:
+      - aquaforge-artifacts:/app/artifacts
+    restart: unless-stopped
+
+volumes:
+  aquaforge-artifacts:
