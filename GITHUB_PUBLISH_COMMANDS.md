@@ -8,9 +8,8 @@ git init -b main
 git add .
 git commit -m "feat(core): initial release of AQUAFORGE SSS marine debris and anomaly detection platform v1.0.0"
 
-# 2. Add your GitHub remote repository (replace with your target GitHub repository URL)
-# Example: https://github.com/PRAYAS-SIH/AQUAFORGE.git
-git remote add origin https://github.com/<YOUR_GITHUB_USERNAME_OR_ORG>/AQUAFORGE.git
+# 2. Add your GitHub remote repository
+git remote add origin https://github.com/Krishna-7772/AquaForge.git
 
 # 3. Push to main branch
 git branch -M main

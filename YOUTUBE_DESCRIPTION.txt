@@ -20,5 +20,5 @@ Scientific References:
 - Physics-Informed Side-Scan Sonar Perception (IEEE TGRS 2026)
 - Learning Which Side to Scan (IEEE ICRA 2024, DOI: 10.1109/ICRA57147.2024.10611077)
 
-GitHub Repository: https://github.com/PRAYAS-SIH/AQUAFORGE
+GitHub Repository: https://github.com/Krishna-7772/AquaForge
 Prototype Documentation: See README.md and DEMO_GUIDE.md in the repository.
