@@ -1,6 +1,7 @@
 # AQUAFORGE — AI-Powered Side-Scan Sonar Analysis for Marine Debris and Anomaly Detection
 
 [![SIH26057](https://img.shields.io/badge/SIH-SIH26057-blue.svg)](https://www.sih.gov.in/)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-brightgreen.svg)](https://krishna-7772.github.io/AquaForge/)
 [![Organization](https://img.shields.io/badge/Organization-MoES%20%2F%20NIOT-navy.svg)](https://www.niot.res.in/)
 [![Theme](https://img.shields.io/badge/Theme-Disaster%20Management-red.svg)](#)
 [![Team](https://img.shields.io/badge/Team-PRAYAS-green.svg)](#)
@@ -9,6 +10,8 @@
 [![Edge Ready](https://img.shields.io/badge/Inference-CPU%20ONNX%20%7E25ms-cyan.svg)](#)
 
 > **"Detect less blindly. Investigate more intelligently."**
+
+🌐 **[Launch Live AQUAFORGE Web Application (GitHub Pages)](https://krishna-7772.github.io/AquaForge/)** &bull; 📄 **[View Official HTML Survey Screening Report](https://krishna-7772.github.io/AquaForge/report_demo.html)**
 
 A serious, operational hydrographic software workstation engineered for the **National Institute of Ocean Technology (NIOT)** and **Ministry of Earth Sciences (MoES)** under Smart India Hackathon Problem **SIH26057**.
 
