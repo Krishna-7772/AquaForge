@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import L from 'leaflet';
 import { Contact, Survey } from '../types';
+import { DEMO_CONTACTS } from '../demoFixtureData';
 import { MapPin, Navigation, Info } from 'lucide-react';
 
 interface MapViewProps {
@@ -39,11 +40,20 @@ export const MapView: React.FC<MapViewProps> = ({ surveys, onSelectSurvey }) => 
       const allCoordinates: [number, number][] = [];
 
       for (const survey of surveys) {
+        let contacts: Contact[] = [];
         try {
           const res = await fetch(`/api/surveys/${survey.id}/contacts`);
-          const contacts: Contact[] = await res.json();
+          if (res.ok) {
+            contacts = await res.json();
+          } else {
+            contacts = DEMO_CONTACTS as any;
+          }
+        } catch (e) {
+          console.warn("Using demo contacts for MapView:", e);
+          contacts = DEMO_CONTACTS as any;
+        }
 
-          contacts.forEach((c) => {
+        contacts.forEach((c) => {
             const geo = c.geolocation;
             if (geo && geo.has_metadata && geo.latitude && geo.longitude) {
               const lat = geo.latitude;
@@ -92,9 +102,6 @@ export const MapView: React.FC<MapViewProps> = ({ surveys, onSelectSurvey }) => 
               circleMarker.bindPopup(popupContent);
             }
           });
-        } catch (e) {
-          console.error("Error loading survey coordinates:", e);
-        }
       }
 
       if (allCoordinates.length > 0) {

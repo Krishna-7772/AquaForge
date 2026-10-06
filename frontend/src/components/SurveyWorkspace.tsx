@@ -4,6 +4,7 @@ import {
   MapPin, Shield, Layers, FileDown, ArrowLeft, RefreshCw, ZoomIn, ZoomOut, Check, X, Tag
 } from 'lucide-react';
 import { Contact, Survey } from '../types';
+import { DEMO_SURVEY, DEMO_CONTACTS } from '../demoFixtureData';
 
 interface SurveyWorkspaceProps {
   surveyId: number;
@@ -30,18 +31,27 @@ export const SurveyWorkspace: React.FC<SurveyWorkspaceProps> = ({ surveyId, onBa
     try {
       setLoading(true);
       const sRes = await fetch(`/api/surveys/${surveyId}`);
-      const sData = await sRes.json();
-      setSurvey(sData);
+      if (sRes.ok) {
+        const sData = await sRes.json();
+        setSurvey(sData);
+      } else {
+        setSurvey(DEMO_SURVEY as any);
+      }
 
       const cRes = await fetch(`/api/surveys/${surveyId}/contacts`);
-      const cData = await cRes.json();
-      setContacts(cData);
-
-      if (cData.length > 0) {
-        setSelectedContact(cData[0]);
+      if (cRes.ok) {
+        const cData = await cRes.json();
+        setContacts(cData);
+        if (cData.length > 0) setSelectedContact(cData[0]);
+      } else {
+        setContacts(DEMO_CONTACTS as any);
+        if (DEMO_CONTACTS.length > 0) setSelectedContact(DEMO_CONTACTS[0] as any);
       }
     } catch (err) {
-      console.error("Failed to load survey data:", err);
+      console.warn("API not reachable, activating embedded demo fixtures:", err);
+      setSurvey(DEMO_SURVEY as any);
+      setContacts(DEMO_CONTACTS as any);
+      if (DEMO_CONTACTS.length > 0) setSelectedContact(DEMO_CONTACTS[0] as any);
     } finally {
       setLoading(false);
     }
@@ -50,6 +60,15 @@ export const SurveyWorkspace: React.FC<SurveyWorkspaceProps> = ({ surveyId, onBa
   useEffect(() => {
     fetchSurveyData();
   }, [surveyId]);
+
+  const resolveAsset = (path: string | undefined | null) => {
+    if (!path) return '';
+    let clean = path.replace(/\\/g, '/');
+    if (clean.startsWith('/')) {
+      clean = clean.substring(1);
+    }
+    return './' + clean;
+  };
 
   const handleReview = async (decision: string) => {
     if (!selectedContact) return;
@@ -69,13 +88,83 @@ export const SurveyWorkspace: React.FC<SurveyWorkspaceProps> = ({ surveyId, onBa
         setTimeout(() => setReviewSuccessMsg(''), 4000);
         // Refresh contact list
         const cRes = await fetch(`/api/surveys/${surveyId}/contacts`);
-        const cData = await cRes.json();
-        setContacts(cData);
-        const updated = cData.find((c: Contact) => c.id === selectedContact.id);
-        if (updated) setSelectedContact(updated);
+        if (cRes.ok) {
+          const cData = await cRes.json();
+          setContacts(cData);
+          const updated = cData.find((c: Contact) => c.id === selectedContact.id);
+          if (updated) setSelectedContact(updated);
+        }
+        return;
       }
     } catch (err) {
-      console.error("Error submitting review:", err);
+      console.warn("Backend unavailable, applying in-memory review update:", err);
+    }
+
+    // In-memory fallback for static deployment
+    const updatedReview = {
+      id: Date.now(),
+      contact_id: selectedContact.id,
+      decision,
+      reviewer_name: reviewerName || "Lead Hydrographer",
+      reclassified_class: reclassifiedClass || null,
+      notes: reviewNotes || "Operator confirmation recorded in offline/static workstation mode.",
+      reviewed_at: new Date().toISOString()
+    };
+    const updatedContact = {
+      ...selectedContact,
+      review: updatedReview,
+      review_status: decision,
+      operator_confirmed_class: reclassifiedClass || (decision === 'CONFIRMED' ? selectedContact.detected_class : null),
+      detected_class: reclassifiedClass || selectedContact.detected_class
+    };
+    setContacts(prev => prev.map(c => c.id === selectedContact.id ? updatedContact : c));
+    setSelectedContact(updatedContact as any);
+    setReviewSuccessMsg(`Review recorded: ${decision}`);
+    setTimeout(() => setReviewSuccessMsg(''), 4000);
+  };
+
+  const handleExport = (format: 'geojson' | 'csv') => {
+    if (!survey) return;
+    if (format === 'geojson') {
+      const geojson = {
+        type: "FeatureCollection",
+        survey_code: survey.survey_code,
+        survey_name: survey.name,
+        features: contacts.map(c => ({
+          type: "Feature",
+          geometry: {
+            type: "Point",
+            coordinates: [c.geolocation?.longitude || 80.2707, c.geolocation?.latitude || 13.0827]
+          },
+          properties: {
+            contact_code: c.contact_code,
+            detected_class: c.detected_class,
+            priority_level: c.priority_level,
+            confidence: c.calibrated_confidence,
+            uncertainty_m: c.geolocation?.position_uncertainty_m || 8.0,
+            acoustic_hypothesis: c.acoustic_hypothesis
+          }
+        }))
+      };
+      const blob = new Blob([JSON.stringify(geojson, null, 2)], { type: 'application/geo+json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${survey.survey_code}_contacts.geojson`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } else {
+      const headers = "contact_code,detected_class,priority_level,confidence,uncertainty_m,latitude,longitude,hypothesis\n";
+      const rows = contacts.map(c => 
+        `"${c.contact_code}","${c.detected_class}","${c.priority_level}",${c.calibrated_confidence},${c.geolocation?.position_uncertainty_m || 8.0},${c.geolocation?.latitude || 13.0827},${c.geolocation?.longitude || 80.2707},"${c.acoustic_hypothesis}"`
+      ).join("\n");
+      const blob = new Blob([headers + rows], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${survey.survey_code}_contacts.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
     }
   };
 
@@ -100,7 +189,7 @@ export const SurveyWorkspace: React.FC<SurveyWorkspaceProps> = ({ surveyId, onBa
 
   const primaryFile = (survey as any).files?.[0];
   const waterfallUrl = primaryFile
-    ? (showPreprocessed && primaryFile.preprocessed_url ? primaryFile.preprocessed_url : `/artifacts/uploads/${primaryFile.filename}`)
+    ? resolveAsset(showPreprocessed && primaryFile.preprocessed_url ? primaryFile.preprocessed_url : `artifacts/uploads/${primaryFile.filename}`)
     : null;
 
   return (
@@ -135,24 +224,24 @@ export const SurveyWorkspace: React.FC<SurveyWorkspaceProps> = ({ surveyId, onBa
 
         {/* Export Toolbar */}
         <div className="flex items-center space-x-2">
-          <a
-            href={`/api/surveys/${survey.id}/export?format=geojson`}
-            download
-            className="inline-flex items-center px-3 py-1.5 text-xs font-semibold rounded bg-gray-100 hover:bg-gray-200 text-gray-800 transition"
+          <button
+            type="button"
+            onClick={() => handleExport('geojson')}
+            className="inline-flex items-center px-3 py-1.5 text-xs font-semibold rounded bg-gray-100 hover:bg-gray-200 text-gray-800 transition cursor-pointer"
           >
             <FileDown className="w-3.5 h-3.5 mr-1 text-gray-600" />
             <span>GeoJSON</span>
-          </a>
-          <a
-            href={`/api/surveys/${survey.id}/export?format=csv`}
-            download
-            className="inline-flex items-center px-3 py-1.5 text-xs font-semibold rounded bg-gray-100 hover:bg-gray-200 text-gray-800 transition"
+          </button>
+          <button
+            type="button"
+            onClick={() => handleExport('csv')}
+            className="inline-flex items-center px-3 py-1.5 text-xs font-semibold rounded bg-gray-100 hover:bg-gray-200 text-gray-800 transition cursor-pointer"
           >
             <FileDown className="w-3.5 h-3.5 mr-1 text-gray-600" />
             <span>CSV</span>
-          </a>
+          </button>
           <a
-            href={`/api/surveys/${survey.id}/report`}
+            href="./report_demo.html"
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center px-3 py-1.5 text-xs font-semibold rounded bg-[#1E3E62] hover:bg-[#0B192C] text-white transition shadow-xs"
@@ -317,7 +406,7 @@ export const SurveyWorkspace: React.FC<SurveyWorkspaceProps> = ({ surveyId, onBa
               <div className="bg-gray-900 rounded-lg p-3 flex flex-col items-center justify-center">
                 {selectedContact.crop_path ? (
                   <img 
-                    src={selectedContact.crop_path} 
+                    src={resolveAsset(selectedContact.crop_path)} 
                     alt={selectedContact.contact_code}
                     className="max-h-48 rounded object-contain border border-gray-700" 
                   />

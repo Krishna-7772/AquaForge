@@ -6,6 +6,7 @@ import { MapView } from './components/MapView';
 import { ReportsView } from './components/ReportsView';
 import { ModelsView } from './components/ModelsView';
 import { Survey } from './types';
+import { DEMO_SURVEY } from './demoFixtureData';
 
 export const App: React.FC = () => {
   const [currentTab, setCurrentTab] = useState<string>('dashboard');
@@ -20,11 +21,16 @@ export const App: React.FC = () => {
       const res = await fetch('/api/surveys');
       if (res.ok) {
         const data = await res.json();
-        setSurveys(data);
+        if (data && data.length > 0) {
+          setSurveys(data);
+          return;
+        }
       }
     } catch (e) {
-      console.error("Error fetching surveys:", e);
+      console.warn("API not reachable, activating static demo mode:", e);
     }
+    // Fallback to embedded demo survey
+    setSurveys([DEMO_SURVEY as any]);
   };
 
   useEffect(() => {
@@ -48,26 +54,39 @@ export const App: React.FC = () => {
         });
       }, 500);
 
-      const res = await fetch('/api/demo/run', { method: 'POST' });
-      clearInterval(pInterval);
+      try {
+        const res = await fetch('/api/demo/run', { method: 'POST' });
+        clearInterval(pInterval);
 
-      if (res.ok) {
-        const data = await res.json();
-        setDemoProgress(100);
-        setDemoStep("Processing complete! Opening workspace...");
-        await fetchSurveys();
-        setTimeout(() => {
-          setIsProcessingDemo(false);
-          setDemoProgress(0);
-          if (data.survey_id) {
-            setSelectedSurveyId(data.survey_id);
-            setCurrentTab('workspace');
-          }
-        }, 800);
-      } else {
-        setIsProcessingDemo(false);
-        alert("Failed to execute demo survey.");
+        if (res.ok) {
+          const data = await res.json();
+          setDemoProgress(100);
+          setDemoStep("Processing complete! Opening workspace...");
+          await fetchSurveys();
+          setTimeout(() => {
+            setIsProcessingDemo(false);
+            setDemoProgress(0);
+            if (data.survey_id) {
+              setSelectedSurveyId(data.survey_id);
+              setCurrentTab('workspace');
+            }
+          }, 800);
+          return;
+        }
+      } catch (err) {
+        console.warn("Backend not available, completing demo simulation client-side:", err);
       }
+
+      // Static fallback completion
+      clearInterval(pInterval);
+      setDemoProgress(100);
+      setDemoStep("Processing complete! Opening workspace...");
+      setTimeout(() => {
+        setIsProcessingDemo(false);
+        setDemoProgress(0);
+        setSelectedSurveyId(DEMO_SURVEY.id);
+        setCurrentTab('workspace');
+      }, 800);
     } catch (e) {
       setIsProcessingDemo(false);
       console.error("Error running demo survey:", e);

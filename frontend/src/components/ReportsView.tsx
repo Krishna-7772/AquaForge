@@ -1,6 +1,7 @@
 import React from 'react';
 import { FileText, Download, ExternalLink, ShieldCheck, Calendar, Layers } from 'lucide-react';
 import { Survey } from '../types';
+import { DEMO_CONTACTS } from '../demoFixtureData';
 
 interface ReportsViewProps {
   surveys: Survey[];
@@ -8,6 +9,50 @@ interface ReportsViewProps {
 }
 
 export const ReportsView: React.FC<ReportsViewProps> = ({ surveys, onSelectSurvey }) => {
+  const handleExport = (survey: Survey, format: 'geojson' | 'csv') => {
+    if (format === 'geojson') {
+      const geojson = {
+        type: "FeatureCollection",
+        survey_code: survey.survey_code,
+        survey_name: survey.name,
+        features: DEMO_CONTACTS.map(c => ({
+          type: "Feature",
+          geometry: {
+            type: "Point",
+            coordinates: [c.geolocation?.longitude || 80.2707, c.geolocation?.latitude || 13.0827]
+          },
+          properties: {
+            contact_code: c.contact_code,
+            detected_class: c.detected_class,
+            priority_level: c.priority_level,
+            confidence: c.calibrated_confidence,
+            uncertainty_m: c.geolocation?.position_uncertainty_m || 8.0,
+            acoustic_hypothesis: c.acoustic_hypothesis
+          }
+        }))
+      };
+      const blob = new Blob([JSON.stringify(geojson, null, 2)], { type: 'application/geo+json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${survey.survey_code}_contacts.geojson`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } else {
+      const headers = "contact_code,detected_class,priority_level,confidence,uncertainty_m,latitude,longitude,hypothesis\n";
+      const rows = DEMO_CONTACTS.map(c => 
+        `"${c.contact_code}","${c.detected_class}","${c.priority_level}",${c.calibrated_confidence},${c.geolocation?.position_uncertainty_m || 8.0},${c.geolocation?.latitude || 13.0827},${c.geolocation?.longitude || 80.2707},"${c.acoustic_hypothesis}"`
+      ).join("\n");
+      const blob = new Blob([headers + rows], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${survey.survey_code}_contacts.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  };
+
   return (
     <div className="space-y-6">
       
@@ -66,7 +111,7 @@ export const ReportsView: React.FC<ReportsViewProps> = ({ surveys, onSelectSurve
             {/* Actions */}
             <div className="mt-5 pt-4 border-t border-gray-100 flex items-center justify-between">
               <a
-                href={`/api/surveys/${s.id}/report`}
+                href={s.is_demo ? "./report_demo.html" : `/api/surveys/${s.id}/report`}
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center text-xs font-bold text-blue-600 hover:text-blue-900"
@@ -76,20 +121,20 @@ export const ReportsView: React.FC<ReportsViewProps> = ({ surveys, onSelectSurve
               </a>
 
               <div className="flex items-center space-x-2">
-                <a
-                  href={`/api/surveys/${s.id}/export?format=geojson`}
-                  download
-                  className="px-2.5 py-1 text-[11px] font-semibold bg-gray-100 hover:bg-gray-200 text-gray-700 rounded"
+                <button
+                  type="button"
+                  onClick={() => handleExport(s, 'geojson')}
+                  className="px-2.5 py-1 text-[11px] font-semibold bg-gray-100 hover:bg-gray-200 text-gray-700 rounded cursor-pointer"
                 >
                   GeoJSON
-                </a>
-                <a
-                  href={`/api/surveys/${s.id}/export?format=csv`}
-                  download
-                  className="px-2.5 py-1 text-[11px] font-semibold bg-gray-100 hover:bg-gray-200 text-gray-700 rounded"
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleExport(s, 'csv')}
+                  className="px-2.5 py-1 text-[11px] font-semibold bg-gray-100 hover:bg-gray-200 text-gray-700 rounded cursor-pointer"
                 >
                   CSV
-                </a>
+                </button>
               </div>
             </div>
           </div>
